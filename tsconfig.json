@@ -21,7 +21,7 @@
     "outDir": "dist"
   },
   "files": [
-    "src/declarations.d.ts",
+    "demo/declarations.d.ts",
     "src/index.ts"
   ],
   "exclude": [
