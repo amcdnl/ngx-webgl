@@ -7,9 +7,12 @@ import { Component } from '@angular/core';
     <div>
       <h1>Hello</h1>
 
+      <ngx-stats></ngx-stats>
       <ngx-renderer>
-        <ngx-perspective-camera></ngx-perspective-camera>
-        <ngx-scene></ngx-scene>
+        <ngx-scene>
+          <ngx-perspective-camera></ngx-perspective-camera>
+          <ngx-point-light></ngx-point-light>
+        </ngx-scene>
       </ngx-renderer>
     </div>
   `

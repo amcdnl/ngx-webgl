@@ -9,11 +9,14 @@ import { PerspectiveCameraComponent } from './cameras';
 })
 export class RendererComponent implements AfterContentInit {
 
-  @Input() height: number = 300;
-  @Input() width: number = 300;
+  @Input() height: number = 500;
+  @Input() width: number = 500;
 
-  @ContentChild(SceneComponent) scene: SceneComponent;
-  @ContentChild(PerspectiveCameraComponent) camera: PerspectiveCameraComponent;
+  @ContentChild(SceneComponent)
+  scene: SceneComponent;
+
+  @ContentChild(PerspectiveCameraComponent, { descendants: true })
+  camera: PerspectiveCameraComponent;
 
   renderer: WebGLRenderer = new WebGLRenderer({
     antialias: true

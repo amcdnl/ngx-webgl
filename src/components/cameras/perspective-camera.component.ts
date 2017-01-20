@@ -7,8 +7,8 @@ import { PerspectiveCamera } from 'three';
 })
 export class PerspectiveCameraComponent implements OnInit {
 
-  @Input() height: number = 300;
-  @Input() width: number = 300;
+  @Input() height: number = 500;
+  @Input() width: number = 500;
   @Input() positions = [0, 0, 0];
 
   viewAngle: number = 75;

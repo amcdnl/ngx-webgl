@@ -76,6 +76,7 @@
     "sass-color-json": "^0.4.0",
     "sass-loader": "^4.1.1",
     "source-map-loader": "^0.1.6",
+    "stats.js": "^0.17.0",
     "style-loader": "^0.13.1",
     "three": "^0.84.0",
     "to-string-loader": "^1.1.5",

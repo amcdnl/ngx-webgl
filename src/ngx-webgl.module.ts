@@ -1,18 +1,29 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RendererComponent, SceneComponent, PerspectiveCameraComponent } from './components';
+
+import {
+  StatsComponent,
+  RendererComponent,
+  SceneComponent,
+  PerspectiveCameraComponent,
+  PointLightComponent
+} from './components';
 
 @NgModule({
   imports: [CommonModule],
   declarations: [
+    StatsComponent,
     RendererComponent,
     SceneComponent,
-    PerspectiveCameraComponent
+    PerspectiveCameraComponent,
+    PointLightComponent
   ],
   exports: [
+    StatsComponent,
     RendererComponent,
     SceneComponent,
-    PerspectiveCameraComponent
+    PerspectiveCameraComponent,
+    PointLightComponent
   ]
 })
 export class NgxWebGlModule { }
