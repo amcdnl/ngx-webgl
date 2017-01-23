@@ -1,11 +1,14 @@
-import { Component, Input, ElementRef, AfterContentInit, ContentChild } from '@angular/core';
+import { Component, Input, ElementRef, AfterContentInit, ContentChild, ViewChild } from '@angular/core';
 import { WebGLRenderer, Scene, PerspectiveCamera } from 'three';
 import { SceneComponent } from './scene.component';
 import { PerspectiveCameraComponent } from './cameras';
 
 @Component({
   selector: 'ngx-renderer',
-  template: `<ng-content></ng-content>`
+  template: `
+    <canvas #canvas></canvas>
+    <ng-content></ng-content>
+  `
 })
 export class RendererComponent implements AfterContentInit {
 
@@ -18,15 +21,19 @@ export class RendererComponent implements AfterContentInit {
   @ContentChild(PerspectiveCameraComponent, { descendants: true })
   camera: PerspectiveCameraComponent;
 
-  renderer: WebGLRenderer = new WebGLRenderer({
-    antialias: true
-  });
+  @ViewChild('canvas') canvas: any;
+
+  renderer: WebGLRenderer;
 
   constructor(private element: ElementRef) { }
 
   ngAfterContentInit(): void {
+    this.renderer = new WebGLRenderer({
+      antialias: true,
+      canvas: this.canvas.nativeElement
+    });
+
     this.renderer.setSize(this.width, this.height);
-    this.element.nativeElement.appendChild(this.renderer.domElement);
     this.renderer.setPixelRatio(Math.floor(window.devicePixelRatio));
     this.render();
   }

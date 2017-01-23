@@ -124,10 +124,10 @@ export class InMemoryRenderer implements Renderer {
 export function setUpRenderFlushing(zone: NgZone, renderer: InMemoryRootRenderer) {
   return () => {
     zone.onStable.subscribe(() => {
-      console.group('--');
-      console.log(renderer.roots);
-      console.log(JSON.stringify(renderer.roots, null, 2));
-      console.groupEnd();
+      // console.group('--');
+      // console.log(renderer.roots);
+      // console.log(JSON.stringify(renderer.roots, null, 2));
+      // console.groupEnd();
     });
   };
 }

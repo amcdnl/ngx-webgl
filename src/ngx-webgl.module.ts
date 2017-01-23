@@ -6,7 +6,8 @@ import {
   RendererComponent,
   SceneComponent,
   PerspectiveCameraComponent,
-  PointLightComponent
+  PointLightComponent,
+  StatsComponent
 } from './components';
 
 @NgModule({
@@ -15,14 +16,17 @@ import {
     RendererComponent,
     SceneComponent,
     PerspectiveCameraComponent,
-    PointLightComponent
+    PointLightComponent,
+    StatsComponent
   ],
   exports: [
     RendererComponent,
     SceneComponent,
     PerspectiveCameraComponent,
-    PointLightComponent
-  ],
+    PointLightComponent,
+    StatsComponent
+  ]
+  /*
   providers: [
     {
       provide: RootRenderer,
@@ -35,5 +39,6 @@ import {
       deps: [ NgZone, RootRenderer ]
     }
   ]
+  */
 })
 export class NgxWebGlModule { }

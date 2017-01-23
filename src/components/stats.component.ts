@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer } from '@angular/core';
 import * as Stats from 'stats.js';
 
 @Component({
@@ -16,12 +16,12 @@ export class StatsComponent implements OnInit {
 
   stats: any = new Stats();
 
-  constructor(private element: ElementRef) { }
+  constructor(private element: ElementRef, private renderer: Renderer) { }
 
   ngOnInit(): void {
     this.stats.showPanel(1);
-    // this.element.nativeElement.appendChild(this.stats.dom);
-    // this.stats.dom.style['position'] = 'relative';
+    this.renderer.projectNodes(this.element.nativeElement, [this.stats.dom]);
+    this.renderer.setElementStyle(this.stats.dom, 'position', 'relative');
     this.render();
   }
 
