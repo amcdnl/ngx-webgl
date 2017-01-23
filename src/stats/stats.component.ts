@@ -20,8 +20,8 @@ export class StatsComponent implements OnInit {
 
   ngOnInit(): void {
     this.stats.showPanel(1);
-    this.element.nativeElement.appendChild(this.stats.dom);
-    this.stats.dom.style['position'] = 'relative';
+    // this.element.nativeElement.appendChild(this.stats.dom);
+    // this.stats.dom.style['position'] = 'relative';
     this.render();
   }
 

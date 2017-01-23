@@ -17,6 +17,7 @@
       "check-separator",
       "check-type"
     ],
+    "max-classes-per-file": [true, 5],
     "only-arrow-functions": false,
     "no-string-literal": false,
     "no-unused-new": false,

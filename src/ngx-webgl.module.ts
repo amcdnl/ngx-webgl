@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
+import { RootRenderer, NgModule, APP_INITIALIZER, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { InMemoryRootRenderer, setUpRenderFlushing } from './in-memory-renderer';
 
 import {
-  StatsComponent,
   RendererComponent,
   SceneComponent,
   PerspectiveCameraComponent,
@@ -12,18 +12,28 @@ import {
 @NgModule({
   imports: [CommonModule],
   declarations: [
-    StatsComponent,
     RendererComponent,
     SceneComponent,
     PerspectiveCameraComponent,
     PointLightComponent
   ],
   exports: [
-    StatsComponent,
     RendererComponent,
     SceneComponent,
     PerspectiveCameraComponent,
     PointLightComponent
+  ],
+  providers: [
+    {
+      provide: RootRenderer,
+      useClass: InMemoryRootRenderer
+    },
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: setUpRenderFlushing,
+      deps: [ NgZone, RootRenderer ]
+    }
   ]
 })
 export class NgxWebGlModule { }
