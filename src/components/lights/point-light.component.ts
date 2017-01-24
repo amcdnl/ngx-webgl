@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PointLight } from 'three';
 
 @Component({
   selector: 'ngx-point-light',
-  template: `<ng-content></ng-content>`
+  template: `<ng-content></ng-content>`,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PointLightComponent implements OnInit {
 

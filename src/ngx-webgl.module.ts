@@ -7,6 +7,9 @@ import {
   SceneComponent,
   PerspectiveCameraComponent,
   PointLightComponent,
+  ObjectComponent,
+  SphereComponent,
+  OrbitControlsComponent,
   StatsComponent
 } from './components';
 
@@ -16,15 +19,21 @@ import {
     RendererComponent,
     SceneComponent,
     PerspectiveCameraComponent,
+    ObjectComponent,
     PointLightComponent,
-    StatsComponent
+    StatsComponent,
+    OrbitControlsComponent,
+    SphereComponent
   ],
   exports: [
     RendererComponent,
     SceneComponent,
     PerspectiveCameraComponent,
     PointLightComponent,
-    StatsComponent
+    ObjectComponent,
+    StatsComponent,
+    SphereComponent,
+    OrbitControlsComponent
   ]
   /*
   providers: [

@@ -90,6 +90,9 @@ module.exports = function(options = {}) {
         APP_VERSION,
         HMR: options.HMR
       }),
+      new webpack.ProvidePlugin({
+        'THREE': 'three'
+      }),
       new webpack.LoaderOptionsPlugin({
         options: {
           context: dir(),
