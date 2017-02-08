@@ -1,3 +1,3 @@
 export * from './ngx-webgl.module';
-export * from './in-memory-renderer';
+export * from './canvas-renderer';
 export * from './components';

@@ -8,7 +8,7 @@ import { PerspectiveCamera } from 'three';
 })
 export class PerspectiveCameraComponent implements OnInit {
 
-  @Input() positions = [0, 0, 10];
+  @Input() positions = [0, 0, 100];
 
   @Input()
   set height(val: number) {
@@ -34,6 +34,7 @@ export class PerspectiveCameraComponent implements OnInit {
   near: number = 0.1;
   far: number = 1000;
   camera: PerspectiveCamera;
+
   _height: number = 0;
   _width: number = 0;
 

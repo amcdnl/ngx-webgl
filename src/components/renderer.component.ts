@@ -1,5 +1,6 @@
 import {
-  Component, Input, ElementRef, AfterContentInit, OnInit, HostListener, ContentChild, ViewChild, ChangeDetectionStrategy
+  Component, Input, ElementRef, AfterContentInit, OnInit, HostListener,
+  ContentChild, ViewChild, ChangeDetectionStrategy, NgZone
 } from '@angular/core';
 import { WebGLRenderer, Scene, PerspectiveCamera } from 'three';
 import { SceneComponent } from './scene.component';
@@ -33,7 +34,7 @@ export class RendererComponent implements OnInit, AfterContentInit {
 
   renderer: WebGLRenderer;
 
-  constructor(private element: ElementRef) { }
+  constructor(private element: ElementRef, private ngZone: NgZone) { }
 
   ngOnInit(): void {
     this.calcSize();
@@ -55,18 +56,20 @@ export class RendererComponent implements OnInit, AfterContentInit {
       this.orbitControls.setupControls(this.camera.camera, this.renderer);
     }
 
-    this.render();
+    this.ngZone.runOutsideAngular(this.render.bind(this));
   }
 
   render(): void {
-    this.camera.camera.lookAt(this.scene.scene.position);
-    this.renderer.render(this.scene.scene, this.camera.camera);
+    this.ngZone.runOutsideAngular(() => {
+      this.camera.camera.lookAt(this.scene.scene.position);
+      this.renderer.render(this.scene.scene, this.camera.camera);
 
-    if(this.orbitControls) {
-      this.orbitControls.updateControls(this.scene.scene, this.camera.camera);
-    }
+      if(this.orbitControls) {
+        this.orbitControls.updateControls(this.scene.scene, this.camera.camera);
+      }
 
-    requestAnimationFrame(() => this.render());
+      requestAnimationFrame(() => this.render());
+    });
   }
 
   @HostListener('window:resize')

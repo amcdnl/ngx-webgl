@@ -19,12 +19,12 @@ import { enableProdMode } from '@angular/core';
 import '@angular/common';
 
 // optimization for production
-if(IS_PRODUCTION) {
+// if(IS_PRODUCTION) {
   disableDebugTools();
   enableProdMode();
-}
+// }
 
-if(IS_DEV) {
-  Error.stackTraceLimit = Infinity;
-  require('zone.js/dist/long-stack-trace-zone');
-}
+// if(IS_DEV) {
+//  Error.stackTraceLimit = Infinity;
+//  require('zone.js/dist/long-stack-trace-zone');
+// }

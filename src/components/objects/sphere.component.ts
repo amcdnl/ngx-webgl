@@ -13,7 +13,10 @@ export class SphereComponent extends ObjectComponent implements OnInit {
     const geometry = new SphereGeometry(3, 50, 50, 0, Math.PI * 2, 0, Math.PI * 2);
     const material = new MeshNormalMaterial();
     const sphere = new Mesh(geometry, material);
-    // sphere.position.set(this.positionX, this.positionY, this.positionZ);
+
+    sphere.position.y = this.positionY;
+    sphere.position.x = this.positionX;
+    sphere.position.z = this.positionZ;
 
     this.object = sphere;
   }

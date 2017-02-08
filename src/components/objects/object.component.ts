@@ -11,7 +11,10 @@ export class ObjectComponent {
   @Input()
   set positionX(val: number) {
     this._positionX = val;
-    if(this.object) this.object.position.x = val;
+
+    if(this.object && this.object.position.x !== val) {
+      this.object.position.x = val;
+    }
   }
 
   get positionX(): number {
@@ -21,7 +24,10 @@ export class ObjectComponent {
   @Input()
   set positionY(val: number) {
     this._positionY = val;
-    if(this.object) this.object.position.y = val;
+
+    if(this.object && this.object.position.y !== val) {
+      this.object.position.y = val;
+    }
   }
 
   get positionY(): number {
@@ -31,7 +37,10 @@ export class ObjectComponent {
   @Input()
   set positionZ(val: number) {
     this._positionZ = val;
-    if(this.object) this.object.position.z = val;
+
+    if(this.object && this.object.position.z !== val) {
+      this.object.position.z = val;
+    }
   }
 
   get positionZ(): number {

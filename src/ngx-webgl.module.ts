@@ -1,6 +1,6 @@
 import { RootRenderer, NgModule, APP_INITIALIZER, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InMemoryRootRenderer, setUpRenderFlushing } from './in-memory-renderer';
+import { CanvasRootRenderer } from './canvas-renderer';
 
 import {
   RendererComponent,
@@ -34,20 +34,12 @@ import {
     StatsComponent,
     SphereComponent,
     OrbitControlsComponent
-  ]
-  /*
+  ],
   providers: [
     {
       provide: RootRenderer,
-      useClass: InMemoryRootRenderer
-    },
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      useFactory: setUpRenderFlushing,
-      deps: [ NgZone, RootRenderer ]
+      useClass: CanvasRootRenderer
     }
   ]
-  */
 })
 export class NgxWebGlModule { }

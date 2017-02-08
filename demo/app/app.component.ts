@@ -15,8 +15,8 @@ import { Component } from '@angular/core';
             <ngx-point-light></ngx-point-light>
             <ngx-sphere
               *ngFor="let ball of balls"
-              [positionY]="ball * 10"
-              [positionX]="ball * 10"
+              [positionY]="ball * 5"
+              [positionX]="ball * 5"
               [positionZ]="0">
             </ngx-sphere>
           </ngx-scene>
