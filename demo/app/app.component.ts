@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app',
   styleUrls: ['./app.component.scss'],
   template: `
     <div>
-      <h1>ngx-webgl</h1>
-      <ngx-stats></ngx-stats>
+      <header>
+        <h1>ngx-webgl</h1>
+        <ngx-stats></ngx-stats>
+      </header>
       <div class="container">
         <ngx-renderer>
           <ngx-orbit-controls></ngx-orbit-controls>
@@ -23,7 +25,8 @@ import { Component } from '@angular/core';
         </ngx-renderer>
       </div>
     </div>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
 

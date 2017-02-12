@@ -43,6 +43,9 @@ export class RendererComponent implements OnInit, AfterContentInit {
   ngAfterContentInit(): void {
     this.renderer = new WebGLRenderer({
       antialias: true,
+      clearAlpha: 1,
+      alpha: true,
+      preserveDrawingBuffer: true,
       canvas: this.canvas.nativeElement
     });
 
@@ -84,6 +87,10 @@ export class RendererComponent implements OnInit, AfterContentInit {
 
       this.height = height;
       this.width = width;
+
+      if(this.renderer) {
+        this.renderer.setSize(this.width, this.height);
+      }
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { OrbitControls, Scene } from 'three';
 import 'three/examples/js/controls/OrbitControls.js';
 
@@ -7,15 +7,39 @@ import 'three/examples/js/controls/OrbitControls.js';
   template: `<ng-content></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OrbitControlsComponent {
+export class OrbitControlsComponent implements OnDestroy {
 
   @Input() enabled: boolean = true;
+  @Input() enableRotate: boolean = true;
+  @Input() enablePan: boolean = true;
+  @Input() enableKeys: boolean = true;
+  @Input() enableZoom: boolean = true;
 
   controls: OrbitControls;
 
   setupControls(camera, renderer) {
     this.controls = new OrbitControls(camera, renderer.domElement);
     this.controls.enabled = this.enabled;
+
+    this.controls.enableRotate = this.enableRotate;
+    this.controls.rotateSpeed = 1.0;
+
+    this.controls.enableKeys = false;
+    this.controls.keyPanSpeed = 10;
+
+    this.controls.enableZoom = this.enableZoom;
+    this.controls.zoomSpeed = 1.2;
+
+    this.controls.enablePan = this.enablePan;
+    this.controls.enableKeys = this.enableKeys;
+    this.controls.keyPanSpeed = 100;
+
+    this.controls.enableDamping = true;
+    this.controls.dampingFactor = 0.3;
+  }
+
+  ngOnDestroy(): void {
+    this.controls.dispose();
   }
 
   updateControls(scene: Scene, camera) {
