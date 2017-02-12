@@ -10,6 +10,7 @@ import {
   ObjectComponent,
   SphereComponent,
   OrbitControlsComponent,
+  VRControlsComponent,
   StatsComponent
 } from './components';
 
@@ -19,6 +20,7 @@ import {
     RendererComponent,
     SceneComponent,
     PerspectiveCameraComponent,
+    VRControlsComponent,
     ObjectComponent,
     PointLightComponent,
     StatsComponent,
@@ -33,7 +35,8 @@ import {
     ObjectComponent,
     StatsComponent,
     SphereComponent,
-    OrbitControlsComponent
+    OrbitControlsComponent,
+    VRControlsComponent
   ],
   providers: [
     {

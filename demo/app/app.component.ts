@@ -6,12 +6,17 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   template: `
     <div>
       <header>
-        <h1>ngx-webgl</h1>
+        <h1>ngx-webgl <small><button (click)="onVrToggle()">VR</button></small></h1>
         <ngx-stats></ngx-stats>
       </header>
       <div class="container">
         <ngx-renderer>
           <ngx-orbit-controls></ngx-orbit-controls>
+          <ngx-vr-controls
+            [enabled]="isVRMode"
+            [height]="height"
+            [width]="width">
+          </ngx-vr-controls>
           <ngx-scene>
             <ngx-perspective-camera></ngx-perspective-camera>
             <ngx-point-light></ngx-point-light>
@@ -30,6 +35,13 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 })
 export class AppComponent {
 
+  height: number;
+  width: number;
   balls = [1, 2, 3, 4, 5 ];
+  isVRMode: boolean = false;
+
+  onVrToggle(): void {
+    this.isVRMode = !this.isVRMode;
+  }
 
 }

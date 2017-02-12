@@ -5,7 +5,7 @@ import {
 import { WebGLRenderer, Scene, PerspectiveCamera } from 'three';
 import { SceneComponent } from './scene.component';
 import { PerspectiveCameraComponent } from './cameras';
-import { OrbitControlsComponent } from './controls';
+import { OrbitControlsComponent, VRControlsComponent } from './controls';
 
 @Component({
   selector: 'ngx-renderer',
@@ -26,6 +26,9 @@ export class RendererComponent implements OnInit, AfterContentInit {
 
   @ContentChild(OrbitControlsComponent)
   orbitControls: OrbitControlsComponent;
+
+  @ContentChild(VRControlsComponent)
+  vrControls: VRControlsComponent;
 
   @ContentChild(PerspectiveCameraComponent, { descendants: true })
   camera: PerspectiveCameraComponent;
@@ -59,6 +62,10 @@ export class RendererComponent implements OnInit, AfterContentInit {
       this.orbitControls.setupControls(this.camera.camera, this.renderer);
     }
 
+    if(this.vrControls) {
+      this.vrControls.setupControls(this.camera.camera, this.renderer);
+    }
+
     this.ngZone.runOutsideAngular(this.render.bind(this));
   }
 
@@ -69,6 +76,10 @@ export class RendererComponent implements OnInit, AfterContentInit {
 
       if(this.orbitControls) {
         this.orbitControls.updateControls(this.scene.scene, this.camera.camera);
+      }
+
+      if(this.vrControls) {
+        this.vrControls.updateControls(this.scene.scene, this.camera.camera);
       }
 
       requestAnimationFrame(() => this.render());

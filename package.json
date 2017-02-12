@@ -78,6 +78,7 @@
     "sass-loader": "^4.1.1",
     "source-map-loader": "^0.1.6",
     "stats.js": "^0.17.0",
+    "string-replace-loader": "^1.0.5",
     "style-loader": "^0.13.1",
     "three": "^0.84.0",
     "to-string-loader": "^1.1.5",
@@ -90,5 +91,8 @@
     "webpack-dev-server": "2.2.0",
     "webpack-merge": "^2.4.0",
     "zone.js": "^0.7.6"
+  },
+  "dependencies": {
+    "webvr-polyfill": "^0.9.25"
   }
 }

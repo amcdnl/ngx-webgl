@@ -29,6 +29,14 @@ module.exports = function(options = {}) {
       exprContextCritical: false,
       rules: [
         {
+          test: /node_modules\/three\/build\/three\.js$/,
+          loader: 'string-replace-loader',
+          query: {
+            search: `console.log( 'THREE.WebGLRenderer', REVISION );`,
+            replace: ''
+          }
+        },
+        {
           test: /\.html$/,
           loader: 'raw-loader',
           exclude: [dir('src/index.html')]
