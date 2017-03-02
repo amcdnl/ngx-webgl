@@ -1,4 +1,4 @@
-# ngx-webgl
+![logo](demo/logo.png)
  
 ## Developing
 - `npm i`
