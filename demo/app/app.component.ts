@@ -20,6 +20,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
           <ngx-scene>
             <ngx-perspective-camera></ngx-perspective-camera>
             <ngx-point-light></ngx-point-light>
+            <ngx-text label="Hello"></ngx-text>
             <ngx-sphere
               *ngFor="let ball of balls"
               [positionY]="ball * 5"

@@ -8,6 +8,7 @@ import {
   PerspectiveCameraComponent,
   PointLightComponent,
   ObjectComponent,
+  TextComponent,
   SphereComponent,
   OrbitControlsComponent,
   VRControlsComponent,
@@ -23,6 +24,7 @@ import {
     VRControlsComponent,
     ObjectComponent,
     PointLightComponent,
+    TextComponent,
     StatsComponent,
     OrbitControlsComponent,
     SphereComponent
@@ -34,6 +36,7 @@ import {
     PointLightComponent,
     ObjectComponent,
     StatsComponent,
+    TextComponent,
     SphereComponent,
     OrbitControlsComponent,
     VRControlsComponent

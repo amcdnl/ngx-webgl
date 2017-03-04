@@ -2,7 +2,7 @@ import { Component, AfterContentInit, ContentChildren, ContentChild, ChangeDetec
 import { Scene } from 'three';
 import { PerspectiveCameraComponent } from './cameras';
 import { PointLightComponent } from './lights';
-import { ObjectComponent, SphereComponent } from './objects';
+import { ObjectComponent, SphereComponent, TextComponent } from './objects';
 
 @Component({
   selector: 'ngx-scene',
@@ -20,6 +20,9 @@ export class SceneComponent implements AfterContentInit {
   @ContentChildren(SphereComponent)
   sphereComps: any;
 
+  @ContentChildren(TextComponent)
+  textComps: any;
+
   scene: Scene = new Scene();
 
   ngAfterContentInit(): void {
@@ -28,7 +31,8 @@ export class SceneComponent implements AfterContentInit {
 
     const meshes = [
       ...this.lightComps.toArray(),
-      ...this.sphereComps.toArray()
+      ...this.sphereComps.toArray(),
+      ...this.textComps.toArray()
     ];
 
     for(const mesh of meshes) {
