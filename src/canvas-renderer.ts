@@ -1,77 +1,255 @@
-import { Injectable, Inject, Renderer, RenderComponentType } from '@angular/core';
-import { DOCUMENT, EventManager, AnimationDriver } from '@angular/platform-browser';
-import { DomRootRenderer, DomRenderer } from '@angular/platform-browser/src/dom/dom_renderer';
-import { DomSharedStylesHost } from '@angular/platform-browser/src/dom/shared_styles_host';
-import { isBlank, isPresent } from '@angular/core/src/facade/lang';
+import {
+  APP_ID, Inject, Injectable, RenderComponentType, Renderer, RendererFactoryV2,
+  RendererTypeV2, RendererV2, RootRenderer, ViewEncapsulation
+} from '@angular/core';
 
-@Injectable()
-export class CanvasRootRenderer extends DomRootRenderer {
+import {
+  DOCUMENT, EventManager, ɵDomSharedStylesHost, ɵNAMESPACE_URIS as NAMESPACE_URIS
+} from '@angular/platform-browser';
 
-  constructor(
-    @Inject(DOCUMENT) _document: any,
-    eventManager: EventManager,
-    sharedStylesHost: DomSharedStylesHost,
-    animate: AnimationDriver) {
-    super(document, eventManager, sharedStylesHost, animate, '1');
-  }
+const COMPONENT_REGEX = /%COMP%/g;
+export const COMPONENT_VARIABLE = '%COMP%';
+export const HOST_ATTR = `_nghost-${COMPONENT_VARIABLE}`;
+export const CONTENT_ATTR = `_ngcontent-${COMPONENT_VARIABLE}`;
 
-  renderComponent(componentProto: RenderComponentType): Renderer {
-    let renderer: any = this.registeredComponents.get(componentProto.id);
-    if (isBlank(renderer)) {
-      renderer = new CanvasRenderer(this, componentProto, this.animationDriver, `${this.appId}-${componentProto.id}`);
-      this.registeredComponents.set(componentProto.id, renderer);
-    }
-    return renderer;
-  }
-
+export function shimContentAttribute(componentShortId: string): string {
+  return CONTENT_ATTR.replace(COMPONENT_REGEX, componentShortId);
 }
 
-export class CanvasRenderer extends DomRenderer {
+export function shimHostAttribute(componentShortId: string): string {
+  return HOST_ATTR.replace(COMPONENT_REGEX, componentShortId);
+}
 
-  blacklist = [
-    'ngx-scene'
+export function flattenStyles(
+    compId: string, styles: Array<any|any[]>, target: string[]): string[] {
+  for (let i = 0; i < styles.length; i++) {
+    let style = styles[i];
+
+    if (Array.isArray(style)) {
+      flattenStyles(compId, style, target);
+    } else {
+      style = style.replace(COMPONENT_REGEX, compId);
+      target.push(style);
+    }
+  }
+  return target;
+}
+
+function decoratePreventDefault(eventHandler) {
+  return (event: any) => {
+    const allowDefaultBehavior = eventHandler(event);
+    if (allowDefaultBehavior === false) {
+      // TODO(tbosch): move preventDefault into event plugins...
+      event.preventDefault();
+      event.returnValue = false;
+    }
+  };
+}
+
+@Injectable()
+export class CanvasDomRendererFactoryV2 implements RendererFactoryV2 {
+
+  private rendererByCompId = new Map<string, RendererV2>();
+  private defaultRenderer: RendererV2;
+
+  constructor(private eventManager: EventManager, private sharedStylesHost: ɵDomSharedStylesHost) {
+    this.defaultRenderer = new CanvasDomRendererV2(eventManager);
+  };
+
+  createRenderer(element: any, type: RendererTypeV2): RendererV2 {
+    if (!element || !type) {
+      return this.defaultRenderer;
+    }
+    switch (type.encapsulation) {
+      case ViewEncapsulation.Emulated: {
+        let renderer = this.rendererByCompId.get(type.id);
+        if (!renderer) {
+          renderer = new EmulatedEncapsulationDomRendererV2(
+              this.eventManager, this.sharedStylesHost, type);
+          this.rendererByCompId.set(type.id, renderer);
+        }
+        (renderer as EmulatedEncapsulationDomRendererV2).applyToHost(element);
+        return renderer;
+      }
+      case ViewEncapsulation.Native:
+        return new ShadowDomRenderer(this.eventManager, this.sharedStylesHost, element, type);
+      default: {
+        if (!this.rendererByCompId.has(type.id)) {
+          const styles = flattenStyles(type.id, type.styles, []);
+          this.sharedStylesHost.addStyles(styles);
+          this.rendererByCompId.set(type.id, this.defaultRenderer);
+        }
+        return this.defaultRenderer;
+      }
+    }
+  }
+}
+
+class CanvasDomRendererV2 implements RendererV2 {
+
+  data: {[key: string]: any} = Object.create(null);
+  destroyNode: null;
+  private blacklist = [
+    'NGX-SCENE'
   ];
 
-  constructor(
-    rootRenderer: CanvasRootRenderer,
-    componentProto: RenderComponentType,
-    animationDriver: AnimationDriver,
-    styleShimId: string) {
-    super(rootRenderer, componentProto, animationDriver, styleShimId);
+  constructor(private eventManager: EventManager) {}
+
+  destroy(): void {
+    // ?
   }
 
-  createElement(parent: Element, name: string, debugInfo: any): Element {
-    // console.log('create element:', arguments);
-
-    const elm = super['createElement'].apply(this, arguments);
-
-    if(this.blacklist.indexOf(name) > -1) {
-      elm.appendChild = (child) => {
-        // override append child to not go further than this point
-      };
+  createElement(name: string, namespace?: string): any {
+    if (namespace) {
+      return document.createElementNS(NAMESPACE_URIS[namespace], name);
     }
 
-    return elm;
+    return document.createElement(name);
   }
 
-  createViewRoot(hostElement: any) {
-    // console.log('create view root:', arguments);
-    return super['createViewRoot'].apply(this, arguments);
+  createComment(value: string): any { return document.createComment(value); }
+
+  createText(value: string): any { return document.createTextNode(value); }
+
+  appendChild(parent: any, newChild: any): void {
+    if(this.blacklist.indexOf(parent.tagName) === -1) {
+      parent.appendChild(newChild);
+    }
   }
 
-  createText(parentElement: any, value: string): any {
-    // console.log('create text:', arguments)
-    return super['createText'].apply(this, arguments);
+  insertBefore(parent: any, newChild: any, refChild: any): void {
+    if (parent) {
+      parent.insertBefore(newChild, refChild);
+    }
   }
 
-  setText(renderNode: any, text: string): void {
-    // console.log('set text:', arguments);
-    super['setText'].apply(this, arguments);
+  removeChild(parent: any, oldChild: any): void {
+    if (parent) {
+      parent.removeChild(oldChild);
+    }
   }
 
-  attachViewAfter(node: any, viewRootNodes: any[]) {
-    // console.log('attach view after:', arguments);
-    return super['attachViewAfter'].apply(this, arguments);
+  selectRootElement(selectorOrNode: string|any): any {
+    const el: any = typeof selectorOrNode === 'string' ? document.querySelector(selectorOrNode) :
+                                                       selectorOrNode;
+    if (!el) {
+      throw new Error(`The selector "${selectorOrNode}" did not match any elements`);
+    }
+
+    el.textContent = '';
+    return el;
   }
+
+  parentNode(node: any): any { return node.parentNode; }
+
+  nextSibling(node: any): any { return node.nextSibling; }
+
+  setAttribute(el: any, name: string, value: string, namespace?: string): void {
+    if (namespace) {
+      el.setAttributeNS(NAMESPACE_URIS[namespace], namespace + ':' + name, value);
+    } else {
+      el.setAttribute(name, value);
+    }
+  }
+
+  removeAttribute(el: any, name: string, namespace?: string): void {
+    if (namespace) {
+      el.removeAttributeNS(NAMESPACE_URIS[namespace], name);
+    } else {
+      el.removeAttribute(name);
+    }
+  }
+
+  addClass(el: any, name: string): void { el.classList.add(name); }
+
+  removeClass(el: any, name: string): void { el.classList.remove(name); }
+
+  setStyle(el: any, style: string, value: any, hasVendorPrefix: boolean, hasImportant: boolean):
+      void {
+    if (hasVendorPrefix || hasImportant) {
+      el.style.setProperty(style, value, hasImportant ? 'important' : '');
+    } else {
+      el.style[style] = value;
+    }
+  }
+
+  removeStyle(el: any, style: string, hasVendorPrefix: boolean): void {
+    if (hasVendorPrefix) {
+      el.style.removeProperty(style);
+    } else {
+      // IE requires '' instead of null
+      // see https://github.com/angular/angular/issues/7916
+      el.style[style] = '';
+    }
+  }
+
+  setProperty(el: any, name: string, value: any): void { el[name] = value; }
+
+  setValue(node: any, value: string): void { node.nodeValue = value; }
+
+  listen(target: 'window'|'document'|'body'|any, event: string, callback: (event: any) => boolean): () => void {
+    if (typeof target === 'string') {
+      return () => this.eventManager.addGlobalEventListener(target, event, decoratePreventDefault(callback));
+    }
+    return () => this.eventManager.addEventListener(target, event, decoratePreventDefault(callback)) as() => void;
+  }
+}
+
+class EmulatedEncapsulationDomRendererV2 extends CanvasDomRendererV2 {
+  private contentAttr: string;
+  private hostAttr: string;
+
+  constructor( eventManager: EventManager, sharedStylesHost, private component: RendererTypeV2) {
+    super(eventManager);
+    const styles = flattenStyles(component.id, component.styles, []);
+    sharedStylesHost.addStyles(styles);
+
+    this.contentAttr = shimContentAttribute(component.id);
+    this.hostAttr = shimHostAttribute(component.id);
+  }
+
+  applyToHost(element: any) { super.setAttribute(element, this.hostAttr, ''); }
+
+  createElement(parent: any, name: string): Element {
+    const el = super.createElement(parent, name);
+    super.setAttribute(el, this.contentAttr, '');
+    return el;
+  }
+}
+
+class ShadowDomRenderer extends CanvasDomRendererV2 {
+  private shadowRoot: any;
+
+  constructor( eventManager, private sharedStylesHost, private hostEl: any, private component) {
+    super(eventManager);
+    this.shadowRoot = (hostEl as any).createShadowRoot();
+    this.sharedStylesHost.addHost(this.shadowRoot);
+    const styles = flattenStyles(component.id, component.styles, []);
+    for (let i = 0; i < styles.length; i++) {
+      const styleEl = document.createElement('style');
+      styleEl.textContent = styles[i];
+      this.shadowRoot.appendChild(styleEl);
+    }
+  }
+
+  destroy() { this.sharedStylesHost.removeHost(this.shadowRoot); }
+
+  appendChild(parent: any, newChild: any): void {
+    return super.appendChild(this.nodeOrShadowRoot(parent), newChild);
+  }
+
+  insertBefore(parent: any, newChild: any, refChild: any): void {
+    return super.insertBefore(this.nodeOrShadowRoot(parent), newChild, refChild);
+  }
+
+  removeChild(parent: any, oldChild: any): void {
+    return super.removeChild(this.nodeOrShadowRoot(parent), oldChild);
+  }
+
+  parentNode(node: any): any {
+    return this.nodeOrShadowRoot(super.parentNode(this.nodeOrShadowRoot(node)));
+  }
+
+  private nodeOrShadowRoot(node: any): any { return node === this.hostEl ? this.shadowRoot : node; }
 
 }
