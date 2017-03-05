@@ -20,22 +20,19 @@ export class OrbitControlsComponent implements OnDestroy {
   setupControls(camera, renderer) {
     this.controls = new OrbitControls(camera, renderer.domElement);
     this.controls.enabled = this.enabled;
+    this.controls.enableKeys = true;
 
     this.controls.enableRotate = this.enableRotate;
     this.controls.rotateSpeed = 1.0;
 
-    this.controls.enableKeys = false;
-    this.controls.keyPanSpeed = 10;
-
     this.controls.enableZoom = this.enableZoom;
-    this.controls.zoomSpeed = 1.2;
+    this.controls.zoomSpeed = 2;
 
     this.controls.enablePan = this.enablePan;
-    this.controls.enableKeys = this.enableKeys;
     this.controls.keyPanSpeed = 100;
 
     this.controls.enableDamping = true;
-    this.controls.dampingFactor = 0.3;
+    this.controls.dampingFactor = 0.25;
   }
 
   ngOnDestroy(): void {

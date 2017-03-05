@@ -6,12 +6,21 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   template: `
     <div>
       <header>
-        <h1>ngx-webgl <small><button (click)="onVrToggle()">VR</button></small></h1>
+        <h1>ngx-webgl
+          <small>
+            <button
+            (click)="isVRMode = !isVRMode()">
+              VR
+            </button>
+          </small>
+        </h1>
         <ngx-stats></ngx-stats>
       </header>
       <div class="container">
         <ngx-renderer>
-          <ngx-orbit-controls></ngx-orbit-controls>
+          <ngx-orbit-controls
+            [enabled]="!isVRMode">
+          </ngx-orbit-controls>
           <ngx-vr-controls
             [enabled]="isVRMode"
             [height]="height"
@@ -19,13 +28,14 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
           </ngx-vr-controls>
           <ngx-scene>
             <ngx-perspective-camera></ngx-perspective-camera>
-            <ngx-point-light></ngx-point-light>
+            <ngx-directional-light></ngx-directional-light>
+            <ngx-ambient-light></ngx-ambient-light>
             <ngx-text label="Hello"></ngx-text>
             <ngx-sphere
               *ngFor="let ball of balls"
-              [positionY]="ball * 5"
-              [positionX]="ball * 5"
-              [positionZ]="0">
+              [positionY]="ball.y"
+              [positionX]="ball.x"
+              [positionZ]="ball.z">
             </ngx-sphere>
           </ngx-scene>
         </ngx-renderer>
@@ -38,11 +48,19 @@ export class AppComponent {
 
   height: number;
   width: number;
-  balls = [1, 2, 3, 4, 5 ];
+  balls: any[] = this.createSpheres();
   isVRMode: boolean = false;
 
-  onVrToggle(): void {
-    this.isVRMode = !this.isVRMode;
+  createSpheres(): any[] {
+    const result = [];
+    for(let i = 0; i < 200; i++) {
+      result.push({
+        x: (Math.random() - 0.5) * 1000,
+        y:  (Math.random() - 0.5) * 1000,
+        z: (Math.random() - 0.5) * 1000
+      });
+    }
+    return result;
   }
 
 }

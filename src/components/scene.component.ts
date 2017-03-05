@@ -1,8 +1,8 @@
 import { Component, AfterContentInit, ContentChildren, ContentChild, ChangeDetectionStrategy } from '@angular/core';
 import { Scene } from 'three';
 import { PerspectiveCameraComponent } from './cameras';
-import { PointLightComponent } from './lights';
-import { ObjectComponent, SphereComponent, TextComponent } from './objects';
+import { PointLightComponent, DirectionalLightComponent, AmbientLightComponent } from './lights';
+import { ObjectComponent, SphereComponent, TextComponent, FogComponent } from './objects';
 
 @Component({
   selector: 'ngx-scene',
@@ -15,13 +15,22 @@ export class SceneComponent implements AfterContentInit {
   camera: PerspectiveCameraComponent;
 
   @ContentChildren(PointLightComponent)
-  lightComps: any;
+  pointLights: any;
+
+  @ContentChildren(DirectionalLightComponent)
+  directionalLights: any;
 
   @ContentChildren(SphereComponent)
   sphereComps: any;
 
   @ContentChildren(TextComponent)
   textComps: any;
+
+  @ContentChildren(AmbientLightComponent)
+  ambientLights: any;
+
+  @ContentChild(FogComponent)
+  fog: any;
 
   scene: Scene = new Scene();
 
@@ -30,13 +39,19 @@ export class SceneComponent implements AfterContentInit {
     this.scene.add(this.camera.camera);
 
     const meshes = [
-      ...this.lightComps.toArray(),
+      ...this.ambientLights.toArray(),
+      ...this.pointLights.toArray(),
+      ...this.directionalLights.toArray(),
       ...this.sphereComps.toArray(),
       ...this.textComps.toArray()
     ];
 
     for(const mesh of meshes) {
       this.scene.add(mesh.object);
+    }
+
+    if(this.fog) {
+      this.scene.fog = this.fog.object;
     }
   }
 

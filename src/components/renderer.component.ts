@@ -55,6 +55,10 @@ export class RendererComponent implements OnInit, AfterContentInit {
     this.renderer.setSize(this.width, this.height);
     this.renderer.setPixelRatio(Math.floor(window.devicePixelRatio));
 
+    if(this.scene.fog) {
+      this.renderer.setClearColor(this.scene.fog.color);
+    }
+
     this.camera.height = this.height;
     this.camera.width = this.width;
 
