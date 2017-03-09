@@ -85,10 +85,10 @@ the `createElement` blacklisting any appending of DOM elements
 beneath the scene component:
 
 ```javascript
-createElement(parent: Element, name: string, debugInfo: any): Element {
-  const elm = super['createElement'].apply(this, arguments);
-  if(name.indexOf('ngx-scene') > -1) elm.appendChild = (child) => {};
-  return elm;
+appendChild(parent: any, newChild: any): void {
+  if(this.blacklist.indexOf(parent.tagName) === -1) {
+    parent.appendChild(newChild);
+  }
 }
 ```
 
