@@ -53,11 +53,11 @@ export class AppComponent {
 
   createSpheres(): any[] {
     const result = [];
-    for(let i = 0; i < 200; i++) {
+    for(let i = 0; i < 50; i++) {
       result.push({
-        x: (Math.random() - 0.5) * 1000,
-        y:  (Math.random() - 0.5) * 1000,
-        z: (Math.random() - 0.5) * 1000
+        x: (Math.random() - 0.5) * 100,
+        y:  (Math.random() - 0.5) * 100,
+        z: (Math.random() - 0.5) * 100
       });
     }
     return result;
