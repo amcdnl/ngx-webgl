@@ -10,6 +10,7 @@ export declare class RendererComponent implements OnInit, AfterContentInit {
     height: number;
     width: number;
     autoSize: boolean;
+    vrMode: boolean;
     scene: SceneComponent;
     orbitControls: OrbitControlsComponent;
     vrControls: VRControlsComponent;
@@ -20,6 +21,7 @@ export declare class RendererComponent implements OnInit, AfterContentInit {
     ngOnInit(): void;
     ngAfterContentInit(): void;
     render(): void;
-    onWindowResize(): void;
-    calcSize(): void;
+    private onWindowResize();
+    private calcSize();
+    private setupVR();
 }
