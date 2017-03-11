@@ -1,6 +1,6 @@
-import { RendererFactoryV2, NgModule, APP_INITIALIZER, NgZone } from '@angular/core';
+import { RendererFactory2, NgModule, APP_INITIALIZER, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CanvasDomRendererFactoryV2 } from './canvas-renderer';
+import { CanvasDomRendererFactory } from './canvas-renderer';
 
 import {
   RendererComponent,
@@ -51,10 +51,10 @@ import {
     VRControlsComponent
   ],
   providers: [
-    CanvasDomRendererFactoryV2,
+    CanvasDomRendererFactory,
     {
-      provide: RendererFactoryV2,
-      useClass: CanvasDomRendererFactoryV2
+      provide: RendererFactory2,
+      useClass: CanvasDomRendererFactory
     }
   ]
 })

@@ -1,6 +1,6 @@
 import {
-  APP_ID, Inject, Injectable, RenderComponentType, Renderer, RendererFactoryV2,
-  RendererTypeV2, RendererV2, RootRenderer, ViewEncapsulation
+  APP_ID, Inject, Injectable, RenderComponentType, Renderer, RendererFactory2,
+  RendererType2, Renderer2, RootRenderer, ViewEncapsulation
 } from '@angular/core';
 
 import {
@@ -47,16 +47,16 @@ function decoratePreventDefault(eventHandler) {
 }
 
 @Injectable()
-export class CanvasDomRendererFactoryV2 implements RendererFactoryV2 {
+export class CanvasDomRendererFactory implements RendererFactory2 {
 
-  private rendererByCompId = new Map<string, RendererV2>();
-  private defaultRenderer: RendererV2;
+  private rendererByCompId = new Map<string, Renderer2>();
+  private defaultRenderer: Renderer2;
 
   constructor(private eventManager: EventManager, private sharedStylesHost: ɵDomSharedStylesHost) {
-    this.defaultRenderer = new CanvasDomRendererV2(eventManager);
+    this.defaultRenderer = new CanvasDomRenderer(eventManager);
   };
 
-  createRenderer(element: any, type: RendererTypeV2): RendererV2 {
+  createRenderer(element: any, type: RendererType2): Renderer2 {
     if (!element || !type) {
       return this.defaultRenderer;
     }
@@ -64,11 +64,11 @@ export class CanvasDomRendererFactoryV2 implements RendererFactoryV2 {
       case ViewEncapsulation.Emulated: {
         let renderer = this.rendererByCompId.get(type.id);
         if (!renderer) {
-          renderer = new EmulatedEncapsulationDomRendererV2(
+          renderer = new EmulatedEncapsulationDomRenderer2(
               this.eventManager, this.sharedStylesHost, type);
           this.rendererByCompId.set(type.id, renderer);
         }
-        (renderer as EmulatedEncapsulationDomRendererV2).applyToHost(element);
+        (renderer as EmulatedEncapsulationDomRenderer2).applyToHost(element);
         return renderer;
       }
       case ViewEncapsulation.Native:
@@ -85,7 +85,7 @@ export class CanvasDomRendererFactoryV2 implements RendererFactoryV2 {
   }
 }
 
-class CanvasDomRendererV2 implements RendererV2 {
+class CanvasDomRenderer implements Renderer2 {
 
   data: {[key: string]: any} = Object.create(null);
   destroyNode: null;
@@ -195,11 +195,11 @@ class CanvasDomRendererV2 implements RendererV2 {
   }
 }
 
-class EmulatedEncapsulationDomRendererV2 extends CanvasDomRendererV2 {
+class EmulatedEncapsulationDomRenderer2 extends CanvasDomRenderer {
   private contentAttr: string;
   private hostAttr: string;
 
-  constructor( eventManager: EventManager, sharedStylesHost, private component: RendererTypeV2) {
+  constructor( eventManager: EventManager, sharedStylesHost, private component: RendererType2) {
     super(eventManager);
     const styles = flattenStyles(component.id, component.styles, []);
     sharedStylesHost.addStyles(styles);
@@ -217,7 +217,7 @@ class EmulatedEncapsulationDomRendererV2 extends CanvasDomRendererV2 {
   }
 }
 
-class ShadowDomRenderer extends CanvasDomRendererV2 {
+class ShadowDomRenderer extends CanvasDomRenderer {
   private shadowRoot: any;
 
   constructor( eventManager, private sharedStylesHost, private hostEl: any, private component) {

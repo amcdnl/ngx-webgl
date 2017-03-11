@@ -18,7 +18,11 @@
     "allowSyntheticDefaultImports": true,
     "suppressExcessPropertyErrors": true,
     "suppressImplicitAnyIndexErrors": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "lib": [
+      "es2016",
+      "dom"
+    ]
   },
   "files": [
     "demo/declarations.d.ts",
