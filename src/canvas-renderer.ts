@@ -7,6 +7,7 @@ import {
   DOCUMENT, EventManager, ɵDomSharedStylesHost, ɵNAMESPACE_URIS as NAMESPACE_URIS
 } from '@angular/platform-browser';
 
+/* tslint:disable */
 const COMPONENT_REGEX = /%COMP%/g;
 export const COMPONENT_VARIABLE = '%COMP%';
 export const HOST_ATTR = `_nghost-${COMPONENT_VARIABLE}`;
@@ -18,6 +19,14 @@ export function shimContentAttribute(componentShortId: string): string {
 
 export function shimHostAttribute(componentShortId: string): string {
   return HOST_ATTR.replace(COMPONENT_REGEX, componentShortId);
+}
+
+const AT_CHARCODE = '@'.charCodeAt(0);
+function checkNoSyntheticProp(name: string, nameKind: string) {
+  if (name.charCodeAt(0) === AT_CHARCODE) {
+    throw new Error(
+        `Found the synthetic ${nameKind} ${name}. Please include either "BrowserAnimationsModule" or "NoopAnimationsModule" in your application.`);
+  }
 }
 
 export function flattenStyles(
@@ -183,15 +192,22 @@ class CanvasDomRenderer implements Renderer2 {
     }
   }
 
-  setProperty(el: any, name: string, value: any): void { el[name] = value; }
+  setProperty(el: any, name: string, value: any): void {
+    checkNoSyntheticProp(name, 'property');
+    el[name] = value;
+  }
 
   setValue(node: any, value: string): void { node.nodeValue = value; }
 
-  listen(target: 'window'|'document'|'body'|any, event: string, callback: (event: any) => boolean): () => void {
+  listen(target: 'window'|'document'|'body'|any, event: string, callback: (event: any) => boolean):
+    () => void {
+    checkNoSyntheticProp(event, 'listener');
     if (typeof target === 'string') {
-      return () => this.eventManager.addGlobalEventListener(target, event, decoratePreventDefault(callback));
+      return <() => void>this.eventManager.addGlobalEventListener(
+        target, event, decoratePreventDefault(callback));
     }
-    return () => this.eventManager.addEventListener(target, event, decoratePreventDefault(callback)) as() => void;
+    return <() => void>this.eventManager.addEventListener(
+      target, event, decoratePreventDefault(callback)) as() => void;
   }
 }
 
@@ -253,3 +269,4 @@ class ShadowDomRenderer extends CanvasDomRenderer {
   private nodeOrShadowRoot(node: any): any { return node === this.hostEl ? this.shadowRoot : node; }
 
 }
+/* tslint: enable */

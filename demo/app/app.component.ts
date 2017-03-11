@@ -9,7 +9,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
         <h1>ngx-webgl
           <small>
             <button
-            (click)="isVRMode = !isVRMode()">
+            (click)="isVRMode = !isVRMode">
               VR
             </button>
           </small>
@@ -17,7 +17,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
         <ngx-stats></ngx-stats>
       </header>
       <div class="container">
-        <ngx-renderer>
+        <ngx-renderer [vrMode]="isVRMode">
           <ngx-orbit-controls
             [enabled]="!isVRMode">
           </ngx-orbit-controls>
