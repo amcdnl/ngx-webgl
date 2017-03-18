@@ -21,6 +21,11 @@ export class RendererComponent implements OnInit, AfterContentInit {
   @Input() width: number = 500;
   @Input() autoSize: boolean = true;
 
+  @Input()
+  set vrMode(val: boolean) {
+    if(val) this.setupVR();
+  }
+
   @ContentChild(SceneComponent)
   scene: SceneComponent;
 
@@ -91,11 +96,11 @@ export class RendererComponent implements OnInit, AfterContentInit {
   }
 
   @HostListener('window:resize')
-  onWindowResize(): void {
+  private onWindowResize(): void {
     this.calcSize();
   }
 
-  calcSize(): void {
+  private calcSize(): void {
     if(this.autoSize) {
       const parent = this.element.nativeElement.parentNode;
       const { width, height } = parent.getBoundingClientRect();
@@ -106,6 +111,17 @@ export class RendererComponent implements OnInit, AfterContentInit {
       if(this.renderer) {
         this.renderer.setSize(this.width, this.height);
       }
+    }
+  }
+
+  private setupVR(): void {
+    if(this.vrControls) {
+      if(!this.vrControls.controls) {
+        this.vrControls.enabled = true;
+        this.vrControls.setupControls(this.camera, this.renderer);
+      }
+
+      this.vrControls.requestPresent();
     }
   }
 

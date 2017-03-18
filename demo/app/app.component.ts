@@ -9,7 +9,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
         <h1>ngx-webgl
           <small>
             <button
-            (click)="isVRMode = !isVRMode()">
+            (click)="isVRMode = !isVRMode">
               VR
             </button>
           </small>
@@ -17,7 +17,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
         <ngx-stats></ngx-stats>
       </header>
       <div class="container">
-        <ngx-renderer>
+        <ngx-renderer [vrMode]="isVRMode">
           <ngx-orbit-controls
             [enabled]="!isVRMode">
           </ngx-orbit-controls>
@@ -53,11 +53,11 @@ export class AppComponent {
 
   createSpheres(): any[] {
     const result = [];
-    for(let i = 0; i < 200; i++) {
+    for(let i = 0; i < 50; i++) {
       result.push({
-        x: (Math.random() - 0.5) * 1000,
-        y:  (Math.random() - 0.5) * 1000,
-        z: (Math.random() - 0.5) * 1000
+        x: (Math.random() - 0.5) * 100,
+        y:  (Math.random() - 0.5) * 100,
+        z: (Math.random() - 0.5) * 100
       });
     }
     return result;
