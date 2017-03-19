@@ -2,7 +2,7 @@ import { Component, AfterContentInit, ContentChildren, ContentChild, ChangeDetec
 import { Scene } from 'three';
 import { PerspectiveCameraComponent } from './cameras';
 import { PointLightComponent, DirectionalLightComponent, AmbientLightComponent } from './lights';
-import { ObjectComponent, SphereComponent, TextComponent, FogComponent } from './objects';
+import { ObjectComponent, SphereComponent, TextComponent, FogComponent, MapMeshComponent } from './objects';
 
 @Component({
   selector: 'ngx-scene',
@@ -29,6 +29,9 @@ export class SceneComponent implements AfterContentInit {
   @ContentChildren(AmbientLightComponent)
   ambientLights: any;
 
+  @ContentChildren(MapMeshComponent)
+  mapComps: any;
+
   @ContentChild(FogComponent)
   fog: any;
 
@@ -43,7 +46,8 @@ export class SceneComponent implements AfterContentInit {
       ...this.pointLights.toArray(),
       ...this.directionalLights.toArray(),
       ...this.sphereComps.toArray(),
-      ...this.textComps.toArray()
+      ...this.textComps.toArray(),
+      ...this.mapComps.toArray()
     ];
 
     for(const mesh of meshes) {
@@ -53,6 +57,17 @@ export class SceneComponent implements AfterContentInit {
     if(this.fog) {
       this.scene.fog = this.fog.object;
     }
+
+    /*
+    anPlayMp4	= document.createElement('video');
+    var url	= "myurl.com/img/videos/sample.mp4";
+    var videoTexture= new THREEx.VideoTexture(url);
+    var video	= videoTexture.video;
+    video.setAttribute('crossorigin', '');
+    videoTexture.texture.minFilter = THREE.LinearFilter;
+    videoTexture.texture.magFilter = THREE.LinearFilter;
+    // updateFcts.push(function(delta, now){ videoTexture.update(delta, now) });
+    */
   }
 
 }

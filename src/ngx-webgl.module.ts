@@ -15,7 +15,8 @@ import {
   SphereComponent,
   OrbitControlsComponent,
   VRControlsComponent,
-  StatsComponent
+  StatsComponent,
+  MapMeshComponent
 } from './components';
 
 @NgModule({
@@ -33,7 +34,8 @@ import {
     TextComponent,
     StatsComponent,
     OrbitControlsComponent,
-    SphereComponent
+    SphereComponent,
+    MapMeshComponent
   ],
   exports: [
     RendererComponent,
@@ -48,7 +50,8 @@ import {
     TextComponent,
     SphereComponent,
     OrbitControlsComponent,
-    VRControlsComponent
+    VRControlsComponent,
+    MapMeshComponent
   ],
   providers: [
     CanvasDomRendererFactory,
