@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Mesh, SphereGeometry, MeshBasicMaterial, TextureLoader } from 'three';
 
 @Component({
@@ -6,7 +6,7 @@ import { Mesh, SphereGeometry, MeshBasicMaterial, TextureLoader } from 'three';
   template: `<ng-content></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MapMeshComponent {
+export class MapMeshComponent implements OnInit {
 
   @Input() imageSrc: string = 'demo/pano.jpg';
   @Input() scale: number[] = [-1, 1, 1];

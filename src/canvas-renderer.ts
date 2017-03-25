@@ -1,6 +1,6 @@
 import {
   APP_ID, Inject, Injectable, RenderComponentType, Renderer, RendererFactory2,
-  RendererType2, Renderer2, RootRenderer, ViewEncapsulation
+  RendererType2, Renderer2, RootRenderer, ViewEncapsulation, RendererStyleFlags2
 } from '@angular/core';
 
 import {
@@ -173,17 +173,17 @@ class CanvasDomRenderer implements Renderer2 {
 
   removeClass(el: any, name: string): void { el.classList.remove(name); }
 
-  setStyle(el: any, style: string, value: any, hasVendorPrefix: boolean, hasImportant: boolean):
-      void {
-    if (hasVendorPrefix || hasImportant) {
-      el.style.setProperty(style, value, hasImportant ? 'important' : '');
+  setStyle(el: any, style: string, value: any, flags?: RendererStyleFlags2): void {
+    if (flags & RendererStyleFlags2.DashCase) {
+      el.style.setProperty(
+          style, value, !!(flags & RendererStyleFlags2.Important) ? 'important' : '');
     } else {
       el.style[style] = value;
     }
   }
 
-  removeStyle(el: any, style: string, hasVendorPrefix: boolean): void {
-    if (hasVendorPrefix) {
+  removeStyle(el: any, style: string, flags: RendererStyleFlags2): void {
+    if (flags & RendererStyleFlags2.DashCase) {
       el.style.removeProperty(style);
     } else {
       // IE requires '' instead of null
