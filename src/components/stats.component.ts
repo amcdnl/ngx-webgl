@@ -7,7 +7,7 @@ import * as Stats from 'stats.js';
   styles: [`
     :host {
       position: absolute;
-      top: 0;
+      bottom: 0;
       right: 0;
     }
   `]

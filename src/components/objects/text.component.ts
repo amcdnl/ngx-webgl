@@ -12,7 +12,7 @@ export class TextComponent extends ObjectComponent implements OnInit {
   @Input() position: number[] = [25, 5, 0];
   @Input() label: string;
   @Input() font: string = 'Bold 18px Arial';
-  @Input() fillStyle: string = 'rgba(255,0,0,1)';
+  @Input() fillStyle: string = 'rgba(63,63,255,1)';
 
   ngOnInit(): void {
     const canvas = document.createElement('canvas');

@@ -5,17 +5,28 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./app.component.scss'],
   template: `
     <div>
+      <!-- Header -->
       <header>
-        <h1>ngx-webgl
-          <small>
-            <button
-            (click)="isVRMode = !isVRMode">
-              VR
-            </button>
-          </small>
-        </h1>
-        <ngx-stats></ngx-stats>
+        <button
+          class="hamburger-menu"
+          (click)="menuActive = !menuActive">
+          <div class="bar" [class.active]="menuActive"></div>
+        </button>
       </header>
+
+      <!-- Stats -->
+      <ngx-stats></ngx-stats>
+
+      <!-- Page Nav -->
+      <nav *ngIf="menuActive">
+        <ul>
+          <li><button (click)="isVRMode = !isVRMode">VR Mode</button></li>
+          <li><button>Balls</button></li>
+          <li><button>Youtube</button></li>
+        </ul>
+      </nav>
+
+      <!-- WebGL Stuff -->
       <div class="container">
         <ngx-renderer [vrMode]="isVRMode">
           <ngx-orbit-controls
