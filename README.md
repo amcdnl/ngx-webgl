@@ -6,6 +6,5 @@
 - Open [http://localhost:9999](http://localhost:9999)
 
 ## Presentation
-- [Slides](https://slides.com/austinmcdaniel/deck-3-4/live)
-- [Slides (1hr)](https://slides.com/austinmcdaniel/deck-3-4-5/live)
+- [Slides](http://slides.com/austinmcdaniel/deck-3-4-5)
 - [Speaker Notes](notes.md)
