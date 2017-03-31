@@ -1,5 +1,86 @@
 # Angular, Beyond the DOM
 
+## History
+We've came so far in the way we use and interact with computers. If we
+look at the history of computer human interaction is actually quite amazing.
+
+- Punch cards
+- Keyboards
+- Mice
+- Touch
+
+The ways we use these interfaces has evolved and so does the tools.
+AngularJS helped us conquer the web with all magical 2-way binding.
+
+## Enter VR
+And things are evolving again and even more quickly now. Virtual reality
+and augmented reality have been dominating the buzz lately. They've totally
+changed the landscape of the way we interact with UIs.
+
+Its funny though, the fundamental concepts behind VR have actually been around
+since 1838. That pre-dates even photography! If you've ever heard the phrase
+that nothing is new anymore, its just rehashes of the old this could never
+be more true.
+
+VR is accomplished through a technique called [stereoscopy](https://en.wikipedia.org/wiki/Stereoscopy).
+Steroscopy is a technique for creating an illusion of depth in an image for bionocular vision.
+It basically presents two images offset seperately to the left and right eye of the viewer.
+When combined at close distance, it tricks the mind to give the perception of 3d depth.
+If you add head tracking to move the image around, you've got VR as we know it today!
+
+## WebVR
+Now that we have these awesome technologies at our grasp, our tooling needs to evolve.
+There are tools like Unity/etc that help create rich experiences via a thick-client
+but there are a lot of use cases that can be accomplished just in web browsers.
+
+The [WebVR specification](https://w3c.github.io/webvr/) was first introduced
+in 2014 but wasn't til 2016 that the proposal hit 1.0. The key behind accomplishing
+WebVR is actually WebGL. Because VR experiences are typically a rich experiences
+we need to be able to tap into the computer GPU directly to pull off these immersively experiences.
+
+There is an amazing list of tools out there that help us build interfaces with WebGL on
+the web and even some that help us build VR too. One of the most promiment projects is ThreeJS,
+which is basically like the jQuery for WebGL.
+
+Take a look at this code example, all I'm doing here is the boilerplate for setting up a scene
+by adding a scene, a camera and some lights. I'm binding event to the window resize and requesting
+a recursive animation frame. This is quite a bit of code, that is complex and prone to error for
+something just as simple as creating the baseline.
+
+When building these interfaces we deal with all the same problems we do today like:
+
+- Interaction Events such as Click, Keyboard and Touch
+- Viewport Events such as Window Resize
+- Lifecycle Hooks for init, render, destroy
+- Animations
+- Data flow
+
+and in addition to that we have many more problems like:
+
+- Desktop/Mobile WebVR
+- Head Tracking
+- Gestures
+- Voice Recongition for Input rather than keyboard
+- Shaders
+
+The biggest one here we need to think about is when we are in VR, the way
+we interact with the UI is totally different. User can't see their keyboard or
+mouse so they need to use things like controllers or voice recongition.
+
+```html
+<a-scene antialias="true">
+```
+
+aframe looks like angular2
+
+angular2 can help us solve the new problems renders
+
+show ui
+
+show impl;ementation
+
+add ngconf logo to balls
+
 ## One Angular to rule them all
 Angular is a amazing framework! It can do so much more than what we think of 
 when it comes to traditional web dev frameworks!
@@ -14,13 +95,9 @@ It helps developers build ui's for a variety of mediums like:
 Isn't that amazing? A javascript framework can do all of that!
 
 We've really taken a big leap from the forms ui's in the browser 
-we were accustomed to building in AngularJS.
+we were accustomed to building in Angular 1 apps.
 
-I worked on a project called ngx-charts, where we created a data viz library using Angular 
-to actually draw the SVGs! It allows me to tap all the awesomeness of Angular in a data 
-viz library creating amazing composition of viz.
-
-## The next evolution
+## The next step in ui
 As we continue to explore the new capabilities we can achieve
 in both Angular and the modern web, we can't help but think of
 the major breakthroughs in technology we've seen in the past couple
@@ -43,13 +120,15 @@ There has been libraries like [threejs](https://threejs.org/)  that have helped 
 all of its complexity and shifting specs. But if you start looking at the code
 you write to achieve these interfaces in these libraries it kind of reminds me of jQuery spaghetti code. [Reference](https://github.com/mrdoob/three.js/blob/master/examples/webgl_geometry_colors.html)
 
+code is complex, very basic, error prone
+
 Looking at this code, we see the same problems we deal with in Angular:
 
 - Interaction Events such as Click, Keyboard and Touch
 - Viewport Events such as Window Resize
 - Lifecycle Hooks for init, render, destroy
 - Animations
-- Dataflow
+- Data flow
 
 in addition to the typical problems we deal with in application development,
 you have new challenges such as:
@@ -58,7 +137,7 @@ you have new challenges such as:
 - Head Tracking
 - Gestures
 - Voice Recongition for Input rather than keyboard
-- Shaders in C code
+- Shaders
 
 Recently some new libraries have emerged such as [AFrame](https://aframe.io/) to help
 create more 'design-time' type webgl/webvr development that we've grown accustomed
@@ -85,6 +164,8 @@ to accomplish the ability to render on all the different mediums they
 abstracted the actual renderer. With this abstraction, we can use
 Angular's component composition, templating, binding to create views
 for all those mediums.
+
+tell why blacklist
 
 We can leverage this abstraction to create WebGL scenes the same way
 AFrame does except using Angular as the engine. Typically in a WebGL
@@ -130,6 +211,7 @@ setting the position of the sphere based on the index of the ball.
 </ngx-renderer>
 ```
 
+show implementation details
 
 ## Applying Virtual Reality
 VR is accomplished through applying [stereoscopy](https://en.wikipedia.org/wiki/Stereoscopy) technique
