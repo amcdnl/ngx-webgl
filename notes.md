@@ -103,11 +103,10 @@ Angular's component composition, templating, binding and then create
 concrete implementations at the renderer level for each platform.
 
 We can leverage this abstraction to create WebGL scenes the same way
-AFrame does except using Angular as the engine. Typically in a WebGL
-environment you want a add event listeners, attach to a canvas object
-and then generating the actual scene and its contents is handled in 
-code. If we want to create a markup based language, we will need to map
-these objects to components in Angular. When we do this, we are now
+AFrame does except using Angular as the engine.
+
+If we want to create a markup based language, we will need to map
+the WebGL objects to components in Angular. When we do this, we are now
 rendering DOM to the body for no purpose at all. WebGL scenes typically
 have hundreds of objects and if we all know one thing, the browser doesn't
 like oodles of DOM.
