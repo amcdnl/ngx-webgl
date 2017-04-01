@@ -23,8 +23,8 @@ that nothing is new anymore, its just rehashes of the old this could never
 be more true.
 
 VR is accomplished through a technique called [stereoscopy](https://en.wikipedia.org/wiki/Stereoscopy).
-Steroscopy is a technique for creating an illusion of depth in an image for bionocular vision.
-It basically presents two images offset seperately to the left and right eye of the viewer.
+Steroscopy is a technique for creating an illusion of depth in an image for binocular vision.
+It basically presents two images offset separately to the left and right eye of the viewer.
 When combined at close distance, it tricks the mind to give the perception of 3d depth.
 If you add head tracking to move the image around, you've got VR as we know it today!
 
@@ -39,15 +39,10 @@ WebVR is actually WebGL. Because VR experiences are typically a rich experiences
 we need to be able to tap into the computer GPU directly to pull off these immersively experiences.
 
 There is an amazing list of tools out there that help us build interfaces with WebGL on
-the web and even some that help us build VR too. One of the most promiment projects is ThreeJS,
+the web and even some that help us build VR too. One of the most prominent projects is ThreeJS,
 which is basically like the jQuery for WebGL.
 
 ## Different Story, Same Problems
-Take a look at this code example, all I'm doing here is the boilerplate for setting up a scene
-by adding a scene, a camera and some lights. I'm binding event to the window resize and requesting
-a recursive animation frame. This is quite a bit of code, that is complex and prone to error for
-something just as simple as creating the baseline.
-
 When building these interfaces we deal with all the same problems we do today like:
 
 - Interaction Events such as Click, Keyboard and Touch
@@ -66,7 +61,12 @@ and in addition to that we have many more problems like:
 
 The biggest one here we need to think about is when we are in VR, the way
 we interact with the UI is totally different. User can't see their keyboard or
-mouse so they need to use things like controllers or voice recongition.
+mouse so they need to use things like controllers or voice recognition.
+
+Take a look at this code example, all I'm doing here is the boilerplate for setting up a scene
+by adding a scene, a camera and some lights. I'm binding event to the window resize and requesting
+a recursive animation frame. This is quite a bit of code, that is complex and prone to error for
+something just as simple as creating the baseline.
 
 ## Light at end of the tunnel
 Recently some new libraries have emerged like [AFrame](https://aframe.io/) to help
@@ -86,7 +86,8 @@ you might think its Angular code.
 </a-scene>
 ```
 
-Its obvisouly note, but what if it could be?
+Its obviously not Angular code, but what if it could be? It has all the same 
+characteristics like bindings, component composition, etc.
 
 ## Custom Renderers
 The team behind Angular is always thinking one step ahead, in order
@@ -116,8 +117,8 @@ inherit from Angular's implementation of DOM Renderer and at the point where
 we start creating DOM objects and appending them to the DOM, we blacklist
 components that are our WebGL components and have no DOM representation.
 This will allow us to use all the features of Angular component composition
-and even bind to window events if needed but not actually incurr the penality
-of rendering to the dom.
+and even bind to window events if needed but not actually incur  the penalty
+of rendering to the DOM.
 
 In the example below you can see how we can define a sphere
 and loop over the number of balls defined in the parent component
@@ -216,12 +217,13 @@ component that will help us out with that.
 - Demo of theatre in vr
 
 ## Next Generation
-Overriding the renderer and blacklisting elements is only the first step. We
-still have quite a bit of performance penalities just due to the overhead of
-using Angular. I think there is a lot of improvements that could be chipped away
-at to make this feasible at scale.
+The techniques I demonstrated in this presentation are just work arounds,
+in order to truely scale rich WebGL/WebVR experiences much more optimizations
+are going to be made. In my sphere example, the performance threshold really
+drops after about ~300 spheres but without the renderer optimization its about
+~150.
 
-I see WebVR similar to the mobile web applications we have today. Everyone builds them but if 
-you want the real native experience, we build them natively. I think the industry can
-look at things like NativeScript has done with native mobile development in Angular
-and apply it to VR and AR for a even more rich experience but still using Angular.
+I think in order to achieve very rich and immersive experences we are going to
+need to look at native builds. NativeScript for example takes Angular markup
+and builds native mobile applications so I see a strong oppertunity for the
+same type of system for WebVR.

@@ -6,5 +6,5 @@
 - Open [http://localhost:9999](http://localhost:9999)
 
 ## Presentation
-- [Slides](http://slides.com/austinmcdaniel/deck-3-4-5)
+- [Slides](http://slides.com/austinmcdaniel/angular-beyond-dom)
 - [Speaker Notes](notes.md)
