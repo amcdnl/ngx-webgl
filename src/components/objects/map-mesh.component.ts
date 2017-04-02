@@ -15,7 +15,7 @@ export class MapMeshComponent implements OnInit {
   @Input() widthSegments: number = 60;
   @Input() heightSegments: number = 0;
 
-  mesh: Mesh;
+  object: Mesh;
 
   ngOnInit(): void {
     const geometry = new SphereGeometry(this.radius, this.widthSegments, this.heightSegments);
@@ -25,7 +25,7 @@ export class MapMeshComponent implements OnInit {
       map: new TextureLoader().load(this.imageSrc)
     });
 
-    this.mesh = new Mesh(geometry, material);
+    this.object = new Mesh(geometry, material);
   }
 
 }

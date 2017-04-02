@@ -57,17 +57,6 @@ export class SceneComponent implements AfterContentInit {
     if(this.fog) {
       this.scene.fog = this.fog.object;
     }
-
-    /*
-    anPlayMp4	= document.createElement('video');
-    var url	= "myurl.com/img/videos/sample.mp4";
-    var videoTexture= new THREEx.VideoTexture(url);
-    var video	= videoTexture.video;
-    video.setAttribute('crossorigin', '');
-    videoTexture.texture.minFilter = THREE.LinearFilter;
-    videoTexture.texture.magFilter = THREE.LinearFilter;
-    // updateFcts.push(function(delta, now){ videoTexture.update(delta, now) });
-    */
   }
 
 }

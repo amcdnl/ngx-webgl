@@ -102,7 +102,7 @@ export class RendererComponent implements OnInit, AfterContentInit {
 
   private calcSize(): void {
     if(this.autoSize) {
-      const parent = this.element.nativeElement.parentNode;
+      const parent = this.element.nativeElement;
       const { width, height } = parent.getBoundingClientRect();
 
       this.height = height;

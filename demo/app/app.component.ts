@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app',
@@ -20,58 +21,33 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
       <!-- Page Nav -->
       <nav *ngIf="menuActive">
         <ul>
-          <li><button (click)="isVRMode = !isVRMode">VR Mode</button></li>
-          <li><button>Balls</button></li>
-          <li><button>Youtube</button></li>
+          <li>
+            <button
+              (click)="menuActive = false"
+              routerLink="/spheres"
+              routerLinkActive="active">
+              Spheres
+            </button>
+          </li>
+          <li>
+            <button
+              routerLink="/theatre"
+              (click)="menuActive = false"
+              routerLinkActive="active">
+              Theatre
+            </button>
+          </li>
         </ul>
       </nav>
 
       <!-- WebGL Stuff -->
-      <div class="container">
-        <ngx-renderer [vrMode]="isVRMode">
-          <ngx-orbit-controls
-            [enabled]="!isVRMode">
-          </ngx-orbit-controls>
-          <ngx-vr-controls
-            [enabled]="isVRMode"
-            [height]="height"
-            [width]="width">
-          </ngx-vr-controls>
-          <ngx-scene>
-            <ngx-perspective-camera></ngx-perspective-camera>
-            <ngx-directional-light></ngx-directional-light>
-            <ngx-ambient-light></ngx-ambient-light>
-            <ngx-text label="Hello"></ngx-text>
-            <ngx-sphere
-              *ngFor="let ball of balls"
-              [positionY]="ball.y"
-              [positionX]="ball.x"
-              [positionZ]="ball.z">
-            </ngx-sphere>
-          </ngx-scene>
-        </ngx-renderer>
-      </div>
+      <router-outlet></router-outlet>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
 
-  height: number;
-  width: number;
-  balls: any[] = this.createSpheres();
-  isVRMode: boolean = false;
-
-  createSpheres(): any[] {
-    const result = [];
-    for(let i = 0; i < 50; i++) {
-      result.push({
-        x: (Math.random() - 0.5) * 100,
-        y:  (Math.random() - 0.5) * 100,
-        z: (Math.random() - 0.5) * 100
-      });
-    }
-    return result;
-  }
+  menuActive: boolean = false;
 
 }

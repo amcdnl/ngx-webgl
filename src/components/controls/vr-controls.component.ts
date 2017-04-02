@@ -15,13 +15,13 @@ export class VRControlsComponent implements OnDestroy {
   @Input() enabled: boolean = true;
   @Input() height: number;
   @Input() width: number;
-  
+
   controls: any; // VRControls;
   effect: any; // VREffect;
 
   ngOnDestroy(): void {
-    this.controls.dispose();
-    this.effect.dispose();
+    if(this.controls) this.controls.dispose();
+    if(this.effect) this.effect.dispose();
   }
 
   setupControls(camera, renderer): void {
