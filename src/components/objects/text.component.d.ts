@@ -1,9 +1,9 @@
 import { OnInit } from '@angular/core';
-import { ObjectComponent } from './object.component';
-export declare class TextComponent extends ObjectComponent implements OnInit {
+export declare class TextComponent implements OnInit {
     position: number[];
     label: string;
     font: string;
     fillStyle: string;
+    object: any;
     ngOnInit(): void;
 }

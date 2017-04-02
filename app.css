@@ -14,20 +14,119 @@ h1, h2, h3, h4 {
 a {
   color: #3F56D1; }
 
-h1 {
-  line-height: 48px;
-  padding: 0 20px;
-  margin: 0;
-  font-size: 1.2rem; }
-
 header {
-  background: #0a0b0c; }
+  background-color: #3e87ec;
+  color: #FFF;
+  height: 48px;
+  width: 55px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999; }
+  header .hamburger-menu {
+    display: inline-block;
+    width: 35px;
+    height: 48px;
+    border: none;
+    cursor: pointer;
+    background: none;
+    padding: 0;
+    margin: 0 10px;
+    position: relative; }
+    header .hamburger-menu .bar,
+    header .hamburger-menu .bar:after,
+    header .hamburger-menu .bar:before {
+      width: 35px;
+      height: 1px; }
+    header .hamburger-menu .bar {
+      position: relative;
+      background: white;
+      transition: all 0ms 300ms; }
+    header .hamburger-menu .bar.animate {
+      background: rgba(255, 255, 255, 0); }
+    header .hamburger-menu .bar:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 10px;
+      background: white;
+      transition: bottom 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1); }
+    header .hamburger-menu .bar:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 10px;
+      background: white;
+      transition: top 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1); }
+    header .hamburger-menu .bar.active:after {
+      top: 0;
+      transform: rotate(45deg);
+      transition: top 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1); }
+    header .hamburger-menu .bar.active:before {
+      bottom: 0;
+      transform: rotate(-45deg);
+      transition: bottom 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1); }
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 998;
+  background: rgba(0, 0, 0, 0.8);
+  transition: background 100ms; }
+  nav ul,
+  nav li {
+    padding: 0;
+    margin: 0;
+    list-style: none; }
+  nav ul {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%); }
+    nav ul li {
+      text-align: center; }
+    nav ul button {
+      cursor: pointer;
+      color: #FFF;
+      margin: 15px 0;
+      padding: 5px 15px;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-bottom: solid 1px #fff;
+      padding: 0;
+      text-transform: uppercase;
+      font-size: 1.8rem;
+      background: none; }
 
 .container {
   position: absolute;
-  top: 48px;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0; }
+
+.vr-toggle {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 999; }
+  .vr-toggle .vr-btn {
+    width: 50px;
+    height: 50px;
+    background: url(56c6ae0fe51cba3d1e8ecdcaccd4568f.png) no-repeat;
+    background-size: contain;
+    border: none;
+    filter: grayscale(100%);
+    cursor: pointer; }
+    .vr-toggle .vr-btn:hover, .vr-toggle .vr-btn:focus {
+      filter: grayscale(0);
+      outline: none; }
+  .vr-toggle .vr-desc {
+    color: #FFF;
+    font-size: 14px; }
 
 /*# sourceMappingURL=app.map*/

@@ -7,8 +7,10 @@ export declare class SceneComponent implements AfterContentInit {
     pointLights: any;
     directionalLights: any;
     sphereComps: any;
+    videoComps: any;
     textComps: any;
     ambientLights: any;
+    mapComps: any;
     fog: any;
     scene: Scene;
     ngAfterContentInit(): void;
