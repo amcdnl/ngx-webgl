@@ -6,8 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack --display-error-details",
-    "release": "NODE_ENV=production npm run build",
-    "package": "NODE_ENV=package npm run build",
+    "release": "cross-env NODE_ENV=production npm run build",
+    "package": "cross-env NODE_ENV=package npm run build",
     "package:aot": "ngc -p tsconfig-aot.json",
     "deploy": "node ./config/deploy.js"
   },
@@ -65,6 +65,7 @@
     "codelyzer": "^2.1.1",
     "copy-webpack-plugin": "^4.0.1",
     "core-js": "^2.4.1",
+    "cross-env": "^4.0.0",
     "css-loader": "^0.28.0",
     "extract-text-webpack-plugin": "2.0.0-beta.4",
     "file-loader": "^0.11.1",
