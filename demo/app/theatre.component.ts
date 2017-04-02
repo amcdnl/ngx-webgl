@@ -16,7 +16,12 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
           <ngx-perspective-camera></ngx-perspective-camera>
           <ngx-directional-light></ngx-directional-light>
           <ngx-ambient-light></ngx-ambient-light>
-          <ngx-map-mesh></ngx-map-mesh>
+          <ngx-map-mesh
+            imageSrc="demo/mountains.jpg">
+          </ngx-map-mesh>
+          <ngx-video
+            url="http://stemkoski.github.io/Three.js/videos/sintel.ogv">
+          </ngx-video>
         </ngx-scene>
       </ngx-renderer>
 

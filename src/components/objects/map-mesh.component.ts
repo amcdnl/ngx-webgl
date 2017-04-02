@@ -8,12 +8,12 @@ import { Mesh, SphereGeometry, MeshBasicMaterial, TextureLoader } from 'three';
 })
 export class MapMeshComponent implements OnInit {
 
-  @Input() imageSrc: string = 'demo/pano.jpg';
+  @Input() imageSrc: string;
   @Input() scale: number[] = [-1, 1, 1];
 
   @Input() radius: number = 500;
-  @Input() widthSegments: number = 60;
-  @Input() heightSegments: number = 0;
+  @Input() widthSegments: number = 500;
+  @Input() heightSegments: number = 500;
 
   object: Mesh;
 

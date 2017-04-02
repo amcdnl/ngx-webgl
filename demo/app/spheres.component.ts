@@ -35,7 +35,7 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 })
 export class SpheresComponent {
 
-  count: number = 50;
+  count: number = 100;
   balls: any[] = this.createSpheres();
   isVRMode: boolean = false;
 
@@ -43,9 +43,9 @@ export class SpheresComponent {
     const result = [];
     for(let i = 0; i < this.count; i++) {
       result.push({
-        x: (Math.random() - 0.5) * 100,
-        y:  (Math.random() - 0.5) * 100,
-        z: (Math.random() - 0.5) * 100
+        x: (Math.random() - 0.5) * 250,
+        y:  (Math.random() - 0.5) * 250,
+        z: (Math.random() - 0.5) * 250
       });
     }
     return result;

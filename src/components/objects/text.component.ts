@@ -1,18 +1,19 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Mesh, SphereGeometry, MeshNormalMaterial } from 'three';
-import { ObjectComponent } from './object.component';
 
 @Component({
   selector: 'ngx-text',
   template: `<ng-content></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TextComponent extends ObjectComponent implements OnInit {
+export class TextComponent implements OnInit {
 
   @Input() position: number[] = [25, 5, 0];
   @Input() label: string;
   @Input() font: string = 'Bold 18px Arial';
   @Input() fillStyle: string = 'rgba(63,63,255,1)';
+
+  object: any;
 
   ngOnInit(): void {
     const canvas = document.createElement('canvas');

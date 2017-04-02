@@ -8,7 +8,7 @@ import { PerspectiveCamera } from 'three';
 })
 export class PerspectiveCameraComponent implements OnInit {
 
-  @Input() positions = [0, 0, 100];
+  @Input() positions = [0, 150, 400];
 
   @Input()
   set height(val: number) {
@@ -56,6 +56,7 @@ export class PerspectiveCameraComponent implements OnInit {
   }
 
   updateAspect(ratio = this.aspect): void {
+    if(!this.camera) return;
     this.camera.aspect = ratio;
     this.camera.updateProjectionMatrix();
   }

@@ -1,13 +1,18 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Mesh, SphereGeometry, MeshNormalMaterial } from 'three';
-import { ObjectComponent } from './object.component';
 
 @Component({
   selector: 'ngx-sphere',
   template: `<ng-content></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SphereComponent extends ObjectComponent implements OnInit {
+export class SphereComponent implements OnInit {
+
+  @Input() positionX: number;
+  @Input() positionY: number;
+  @Input() positionZ: number;
+
+  object: Mesh;
 
   ngOnInit(): void {
     const geometry = new SphereGeometry(3, 50, 50, 0, Math.PI * 2, 0, Math.PI * 2);
