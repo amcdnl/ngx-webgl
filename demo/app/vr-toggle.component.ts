@@ -6,7 +6,7 @@ import { Component, ChangeDetectionStrategy, Output, EventEmitter, OnInit } from
     <div class="vr-toggle">
       <button
         class="vr-btn"
-        (click)="toggle(vrMode = !vrMode)">
+        (click)="toggle.emit(vrMode = !vrMode)">
       </button>
       <span
         *ngIf="!vrAvailable"
