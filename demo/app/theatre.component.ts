@@ -17,7 +17,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
           <ngx-directional-light></ngx-directional-light>
           <ngx-ambient-light></ngx-ambient-light>
           <ngx-map-mesh
-            imageSrc="demo/mountains.jpg">
+            imageSrc="mountains.jpg">
           </ngx-map-mesh>
           <ngx-video
             url="http://stemkoski.github.io/Three.js/videos/sintel.ogv">

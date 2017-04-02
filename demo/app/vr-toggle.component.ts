@@ -6,14 +6,13 @@ import { Component, ChangeDetectionStrategy, Output, EventEmitter, OnInit } from
     <div class="vr-toggle">
       <button
         class="vr-btn"
-        *ngIf="vrAvailable"
         (click)="toggle(vrMode = !vrMode)">
       </button>
-      <div
+      <span
         *ngIf="!vrAvailable"
         class="vr-desc">
         😢 No VR Devices Found
-      </div>
+      </span>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush

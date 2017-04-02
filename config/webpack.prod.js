@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const commonConfig = require('./webpack.common');
 const { ENV, dir } = require('./helpers');
 const { CheckerPlugin } = require('awesome-typescript-loader');
+const { BaseHrefWebpackPlugin } = require('base-href-webpack-plugin');
 
 module.exports = function(env) {
   return webpackMerge(commonConfig({ env: ENV }), {
@@ -37,6 +38,7 @@ module.exports = function(env) {
         name: ['polyfills'],
         minChunks: Infinity
       }),
+      new BaseHrefWebpackPlugin({ baseHref: '/ngx-webgl/' }),
       new HtmlWebpackPlugin({
         template: 'demo/index.html'
       }),
