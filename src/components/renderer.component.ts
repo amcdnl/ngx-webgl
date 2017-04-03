@@ -69,27 +69,24 @@ export class RendererComponent implements OnInit, AfterContentInit {
       this.renderer.setClearColor(this.scene.fog.color);
     }
 
-    if(this.orbitControls) {
+    if(this.orbitControls && !this.vrMode) {
       this.orbitControls.setupControls(this.camera.camera, this.renderer);
     }
 
-    if(this.vrControls) {
-      this.vrControls.height = this.height;
-      this.vrControls.width = this.width;
-      this.vrControls.setupControls(this.camera.camera, this.renderer);
+    if(this.vrControls && this.vrMode) {
+      this.setupVR();
     }
 
     this.ngZone.runOutsideAngular(this.render.bind(this));
   }
 
   render(): void {
-    if(this.orbitControls) {
+    if(this.orbitControls && !this.vrControls.enabled) {
       this.orbitControls.updateControls(this.scene.scene, this.camera.camera);
     }
 
     if(this.vrControls && this.vrControls.enabled) {
       this.vrControls.updateControls(this.scene.scene, this.camera.camera);
-      this.vrControls.effect.requestAnimationFrame(this.render.bind(this));
     }
 
     if(this.scene.videoComps) {

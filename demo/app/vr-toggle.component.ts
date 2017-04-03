@@ -5,6 +5,10 @@ import { Component, ChangeDetectionStrategy, Output, EventEmitter, OnInit } from
   template: `
     <div class="vr-toggle">
       <button
+        class="fullscreen-btn"
+        (click)="fullscreen.emit()">
+      </button>
+      <button
         class="vr-btn"
         (click)="toggle.emit(vrMode = !vrMode)">
       </button>
@@ -20,20 +24,13 @@ import { Component, ChangeDetectionStrategy, Output, EventEmitter, OnInit } from
 export class VRToggleComponent implements OnInit {
 
   @Output() toggle = new EventEmitter();
+  @Output() fullscreen = new EventEmitter();
 
   vrMode: boolean = false;
   vrAvailable: boolean = false;
 
   ngOnInit(): void {
-    if(navigator.getVRDisplays) {
-      navigator.getVRDisplays().then((displays) => {
-        if (!displays.length) {
-          this.vrAvailable = false;
-        } else {
-          this.vrAvailable = true;
-        }
-      });
-    }
+    this.vrAvailable = navigator.getVRDisplays !== undefined;
   }
 
 }

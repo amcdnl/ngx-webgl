@@ -38,7 +38,7 @@ header {
     margin:0 10px;
     position: relative;
 
-    &:focs {
+    &:focus {
       outline: none;
     }
 
@@ -148,6 +148,23 @@ nav {
   bottom: 10px;
   left: 10px;
   z-index: 999;
+
+  .fullscreen-btn {
+    display: inline-block;
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+    background: url(../assets/fullscreen.png) no-repeat;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+    margin-right: 15px;
+
+    &:hover,
+    &:focus {
+      outline: none;
+    }
+  }
 
   .vr-btn {
     display: inline-block;

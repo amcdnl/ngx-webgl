@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, ElementRef } from '@angular/core';
+import { requestFullScreen } from '../../src';
 
 @Component({
   selector: 'app-spheres',
@@ -27,7 +28,8 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 
       <!-- Enable VR Mode -->
       <vr-toggle
-        (toggle)="isVRMode = $event">
+        (toggle)="isVRMode = $event"
+        (fullscreen)="onFullScreen()">
       </vr-toggle>
     </div>
   `,
@@ -35,9 +37,11 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 })
 export class SpheresComponent {
 
-  count: number = 100;
+  count: number = 50;
   balls: any[] = this.createSpheres();
   isVRMode: boolean = false;
+
+  constructor(private element: ElementRef) { }
 
   createSpheres(): any[] {
     const result = [];
@@ -49,6 +53,10 @@ export class SpheresComponent {
       });
     }
     return result;
+  }
+
+  onFullScreen(): void {
+    requestFullScreen(document.body);
   }
 
 }
