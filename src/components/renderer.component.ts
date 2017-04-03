@@ -62,12 +62,12 @@ export class RendererComponent implements OnInit, AfterContentInit {
     this.renderer.setSize(this.width, this.height);
     this.renderer.setPixelRatio(Math.floor(window.devicePixelRatio));
 
+    this.camera.height = this.height;
+    this.camera.width = this.width;
+
     if(this.scene.fog) {
       this.renderer.setClearColor(this.scene.fog.color);
     }
-
-    this.camera.height = this.height;
-    this.camera.width = this.width;
 
     if(this.orbitControls) {
       this.orbitControls.setupControls(this.camera.camera, this.renderer);
@@ -138,7 +138,7 @@ export class RendererComponent implements OnInit, AfterContentInit {
         this.vrControls.enabled = true;
         this.vrControls.height = this.height;
         this.vrControls.width = this.width;
-        this.vrControls.setupControls(this.camera, this.renderer);
+        this.vrControls.setupControls(this.camera.camera, this.renderer);
       }
 
       this.vrControls.requestPresent();

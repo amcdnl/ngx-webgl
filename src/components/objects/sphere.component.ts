@@ -16,7 +16,7 @@ export class SphereComponent implements OnInit {
 
   ngOnInit(): void {
     const geometry = new SphereGeometry(3, 50, 50, 0, Math.PI * 2, 0, Math.PI * 2);
-    const material = new MeshNormalMaterial();
+    const material = new THREE.MeshLambertMaterial({ color: Math.random() * 0xffffff });
     const sphere = new Mesh(geometry, material);
 
     sphere.position.y = this.positionY;
