@@ -1,8 +1,8 @@
 import { Component, Input, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-
 import { VRControls, VREffect } from 'three';
 import 'three/examples/js/controls/VRControls.js';
 import 'three/examples/js/effects/VREffect.js';
+import 'webvr-polyfill';
 
 @Component({
   selector: 'ngx-vr-controls',
@@ -34,10 +34,9 @@ export class VRControlsComponent implements OnDestroy {
       navigator.getVRDisplays().then((displays) => {
         this.effect.setVRDisplay(displays[0]);
         this.controls.setVRDisplay(displays[0]);
+        this.effect.requestPresent();
       });
     }
-
-    this.requestPresent();
   }
 
   setEffectSize(width: number, height: number): void {
@@ -46,14 +45,8 @@ export class VRControlsComponent implements OnDestroy {
   }
 
   updateControls(scene, camera) {
-    if(!this.controls || !this.effect) return;
-    this.controls.update();
-    this.effect.render(scene, camera);
-  }
-
-  requestPresent(): void {
-    if(!this.effect) return;
-    this.effect.requestPresent([ { source: undefined } ]);
+    if(this.controls) this.controls.update();
+    if(this.effect) this.effect.render(scene, camera);
   }
 
   resetPose(): void {

@@ -130,15 +130,11 @@ export class RendererComponent implements OnInit, AfterContentInit {
   }
 
   private setupVR(): void {
-    if(this.vrControls) {
-      if(!this.vrControls.controls) {
-        this.vrControls.enabled = true;
-        this.vrControls.height = this.height;
-        this.vrControls.width = this.width;
-        this.vrControls.setupControls(this.camera.camera, this.renderer);
-      }
-
-      this.vrControls.requestPresent();
+    if(this.vrControls && !this.vrControls.controls) {
+      this.vrControls.enabled = true;
+      this.vrControls.height = this.height;
+      this.vrControls.width = this.width;
+      this.vrControls.setupControls(this.camera.camera, this.renderer);
     }
   }
 
