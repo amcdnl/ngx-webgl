@@ -1,9 +1,9 @@
 import { Component, Input, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 
 import { VRControls, VREffect } from 'three';
-import 'webvr-polyfill';
 import 'three/examples/js/controls/VRControls.js';
 import 'three/examples/js/effects/VREffect.js';
+import 'three/examples/js/vr/WebVR.js';
 
 @Component({
   selector: 'ngx-vr-controls',

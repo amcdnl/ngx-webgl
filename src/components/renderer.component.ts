@@ -57,6 +57,8 @@ export class RendererComponent implements OnInit, AfterContentInit {
       canvas: this.canvas.nativeElement
     });
 
+    this.renderer.autoClear = true;
+    this.renderer.setClearColor('#16191C', 1);
     this.renderer.setSize(this.width, this.height);
     this.renderer.setPixelRatio(Math.floor(window.devicePixelRatio));
 
@@ -82,9 +84,6 @@ export class RendererComponent implements OnInit, AfterContentInit {
 
   render(): void {
     this.ngZone.runOutsideAngular(() => {
-      this.camera.camera.lookAt(this.scene.scene.position);
-      this.renderer.render(this.scene.scene, this.camera.camera);
-
       if(this.orbitControls) {
         this.orbitControls.updateControls(this.scene.scene, this.camera.camera);
       }
@@ -102,6 +101,8 @@ export class RendererComponent implements OnInit, AfterContentInit {
         }
       }
 
+      this.camera.camera.lookAt(this.scene.scene.position);
+      this.renderer.render(this.scene.scene, this.camera.camera);
       requestAnimationFrame(() => this.render());
     });
   }
@@ -123,6 +124,11 @@ export class RendererComponent implements OnInit, AfterContentInit {
       if(this.camera) {
         this.camera.height = this.height;
         this.camera.width = this.width;
+      }
+
+      if(this.vrControls) {
+        this.vrControls.height = this.height;
+        this.vrControls.width = this.width;
       }
     }
   }
