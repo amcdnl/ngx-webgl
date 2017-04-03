@@ -33,7 +33,7 @@ header {
     padding: 0;
     margin: 0 10px;
     position: relative; }
-    header .hamburger-menu:focs {
+    header .hamburger-menu:focus {
       outline: none; }
     header .hamburger-menu .bar,
     header .hamburger-menu .bar:after,
@@ -116,6 +116,18 @@ nav {
   bottom: 10px;
   left: 10px;
   z-index: 999; }
+  .vr-toggle .fullscreen-btn {
+    display: inline-block;
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+    background: url(dea09d541a16f0cef945a22caaf9f7d5.png) no-repeat;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+    margin-right: 15px; }
+    .vr-toggle .fullscreen-btn:hover, .vr-toggle .fullscreen-btn:focus {
+      outline: none; }
   .vr-toggle .vr-btn {
     display: inline-block;
     vertical-align: middle;
