@@ -83,28 +83,27 @@ export class RendererComponent implements OnInit, AfterContentInit {
   }
 
   render(): void {
-    this.ngZone.runOutsideAngular(() => {
-      if(this.orbitControls) {
-        this.orbitControls.updateControls(this.scene.scene, this.camera.camera);
-      }
+    if(this.orbitControls) {
+      this.orbitControls.updateControls(this.scene.scene, this.camera.camera);
+    }
 
-      if(this.vrControls) {
-        this.vrControls.updateControls(this.scene.scene, this.camera.camera);
-      }
+    if(this.vrControls && this.vrControls.enabled) {
+      this.vrControls.updateControls(this.scene.scene, this.camera.camera);
+      this.vrControls.effect.requestAnimationFrame(this.render.bind(this));
+    }
 
-      if(this.scene.videoComps) {
-        for(const vidComp of this.scene.videoComps.toArray()) {
-          if (vidComp.video.readyState === vidComp.video.HAVE_ENOUGH_DATA) {
-            vidComp.videoImageContext.drawImage(vidComp.video, 0, 0 );
-            if (vidComp.videoTexture) vidComp.videoTexture.needsUpdate = true;
-          }
+    if(this.scene.videoComps) {
+      for(const vidComp of this.scene.videoComps.toArray()) {
+        if (vidComp.video.readyState === vidComp.video.HAVE_ENOUGH_DATA) {
+          vidComp.videoImageContext.drawImage(vidComp.video, 0, 0);
+          if (vidComp.videoTexture) vidComp.videoTexture.needsUpdate = true;
         }
       }
+    }
 
-      this.camera.camera.lookAt(this.scene.scene.position);
-      this.renderer.render(this.scene.scene, this.camera.camera);
-      requestAnimationFrame(() => this.render());
-    });
+    this.camera.camera.lookAt(this.scene.scene.position);
+    this.renderer.render(this.scene.scene, this.camera.camera);
+    requestAnimationFrame(() => this.ngZone.runOutsideAngular(this.render.bind(this)));
   }
 
   @HostListener('window:resize')
