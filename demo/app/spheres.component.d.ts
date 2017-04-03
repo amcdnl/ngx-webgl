@@ -1,10 +1,14 @@
-import { ElementRef } from '@angular/core';
-export declare class SpheresComponent {
+import { ElementRef, AfterViewInit, NgZone } from '@angular/core';
+export declare class SpheresComponent implements AfterViewInit {
     private element;
+    private ngZone;
     count: number;
     balls: any[];
     isVRMode: boolean;
-    constructor(element: ElementRef);
+    spheres: any;
+    constructor(element: ElementRef, ngZone: NgZone);
+    ngAfterViewInit(): void;
+    animate(): void;
     createSpheres(): any[];
     onFullScreen(): void;
 }
