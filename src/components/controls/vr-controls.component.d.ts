@@ -1,7 +1,7 @@
 import { OnDestroy } from '@angular/core';
-import 'webvr-polyfill';
 import 'three/examples/js/controls/VRControls.js';
 import 'three/examples/js/effects/VREffect.js';
+import 'three/examples/js/vr/WebVR.js';
 export declare class VRControlsComponent implements OnDestroy {
     enabled: boolean;
     height: number;
