@@ -46,7 +46,10 @@ export class VRControlsComponent implements OnDestroy {
 
   requestPresent(): void {
     if(!this.effect) return;
-    this.effect.requestPresent();
+    navigator.getVRDisplays().then((displays) => {
+      this.effect.requestPresent(displays[0]);
+      this.controls.setVRDisplay(displays[0]);
+    });
   }
 
   resetPose(): void {

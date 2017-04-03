@@ -38,6 +38,10 @@ header {
     margin:0 10px;
     position: relative;
 
+    &:focs {
+      outline: none;
+    }
+
     .bar,
     .bar:after,
     .bar:before {
@@ -146,6 +150,8 @@ nav {
   z-index: 999;
 
   .vr-btn {
+    display: inline-block;
+    vertical-align: middle;
     width: 50px;
     height: 50px;
     background: url(../assets/cardboard.png) no-repeat;
@@ -165,5 +171,8 @@ nav {
   .vr-desc {
     color: #FFF;
     font-size: 14px;
+    line-height: 50px;
+    display: inline-block;
+    vertical-align: middle;
   }
 }
