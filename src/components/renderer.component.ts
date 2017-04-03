@@ -72,6 +72,8 @@ export class RendererComponent implements OnInit, AfterContentInit {
     }
 
     if(this.vrControls) {
+      this.vrControls.height = this.height;
+      this.vrControls.width = this.width;
       this.vrControls.setupControls(this.camera.camera, this.renderer);
     }
 
@@ -129,6 +131,8 @@ export class RendererComponent implements OnInit, AfterContentInit {
     if(this.vrControls) {
       if(!this.vrControls.controls) {
         this.vrControls.enabled = true;
+        this.vrControls.height = this.height;
+        this.vrControls.width = this.width;
         this.vrControls.setupControls(this.camera, this.renderer);
       }
 
