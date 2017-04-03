@@ -81,12 +81,16 @@ export class RendererComponent implements OnInit, AfterContentInit {
   }
 
   render(): void {
+    this.camera.camera.lookAt(this.scene.scene.position);
+
     if(this.orbitControls && !this.vrControls.enabled) {
       this.orbitControls.updateControls(this.scene.scene, this.camera.camera);
     }
 
     if(this.vrControls && this.vrControls.enabled) {
       this.vrControls.updateControls(this.scene.scene, this.camera.camera);
+    } else {
+      this.renderer.render(this.scene.scene, this.camera.camera);
     }
 
     if(this.scene.videoComps) {
@@ -98,8 +102,6 @@ export class RendererComponent implements OnInit, AfterContentInit {
       }
     }
 
-    this.camera.camera.lookAt(this.scene.scene.position);
-    this.renderer.render(this.scene.scene, this.camera.camera);
     requestAnimationFrame(() => this.ngZone.runOutsideAngular(this.render.bind(this)));
   }
 
@@ -130,7 +132,7 @@ export class RendererComponent implements OnInit, AfterContentInit {
   }
 
   private setupVR(): void {
-    if(this.vrControls && !this.vrControls.controls) {
+    if(this.vrControls) {
       this.vrControls.enabled = true;
       this.vrControls.height = this.height;
       this.vrControls.width = this.width;
