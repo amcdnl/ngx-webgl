@@ -98,6 +98,12 @@ module.exports = function(options = {}) {
         APP_VERSION,
         HMR: options.HMR
       }),
+      new CopyWebpackPlugin([
+        {
+          from: 'demo/assets',
+          to: 'assets'
+        }
+      ]),
       new webpack.ProvidePlugin({
         'THREE': 'three'
       }),

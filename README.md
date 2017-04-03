@@ -1,4 +1,4 @@
-![logo](demo/logo.png)
+![logo](demo/assets/logo.png)
  
 ## Developing
 - `npm i`
