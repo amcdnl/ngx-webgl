@@ -202,7 +202,7 @@ Once we have our scene rendering in a stereoscopic view, we need to tap the brow
 Since WebVR is still pretty new, we need to use a [WebVR Polyfill](https://github.com/googlevr/webvr-polyfill)
 to accomplish this. The polyfill allows us to:
 
-- Enter chromless view
+- Enter chromeless view
 - Orientation
 - Head Tracking
 
